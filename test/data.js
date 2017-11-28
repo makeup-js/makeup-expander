@@ -1,6 +1,6 @@
 'use strict';
 
-var htmlTemplate = '<span class="expander">'
+var htmlTemplate1 = '<span class="expander">'
     + '<button class="expander__host"><button>'
     + '<div class="expander__content"></div>'
 + '</span>';
@@ -8,7 +8,7 @@ var htmlTemplate = '<span class="expander">'
 module.exports = [
     {
         options: { click: true, focus: false, hover: false },
-        html: htmlTemplate,
+        html: htmlTemplate1,
         collapsedState: {
             click: { expandedCount: 1, collapsedCount: 0, ariaExpanded: 'true' },
             focus: { expandedCount: 0, collapsedCount: 0, ariaExpanded: 'false' }
@@ -20,7 +20,7 @@ module.exports = [
     },
     {
         options: { click: false, focus: true, hover: false },
-        html: htmlTemplate,
+        html: htmlTemplate1,
         collapsedState: {
             click: { expandedCount: 0, collapsedCount: 0, ariaExpanded: 'false' },
             focus: { expandedCount: 1, collapsedCount: 0, ariaExpanded: 'true' }
