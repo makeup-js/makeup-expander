@@ -28,7 +28,7 @@ yarn add makeup-expander
 ```html
 <div class="expander expander--click">
     <button class="expander__host">Click for Flyout</button>
-    <div class="expander__content" id="flyout-0">
+    <div class="expander__content">
         <p>Any kind of HTML control can go inside...</p>
         <p>A link: <a id="foo" href="http://www.ebay.com">www.ebay.com</a></p>
         <p>A button: <button>Click Me</button></p>
@@ -49,8 +49,10 @@ const widgetEl = document.querySelector('.expander--click');
 const options = {
     autoCollapse: true,
     click: true,
+    contentSelector: '.expander__content',
     focus: false,
     focusManagement: null,
+    hostSelector: '.expander__host',
     hover: false
 };
 
@@ -75,11 +77,11 @@ Clicking the button will now toggle it's aria-expanded state. CSS can be used to
 * `el`: the root widget el
 * `options.autoCollapse`: whether expandee should collapse when focus or mouse leaves the widget
 * `options.click`: whether the host should be click activated (default: true)
+* `options.contentSelector`: the query selector for the expandee element in relation to the widget (default: '.expander__content')
 * `options.focus`: whether the host should be focus activated (default: false)
 * `options.focusManagement`: where focus should go (null, 'content', 'focusable' or ID reference) when click expander is activated with keyboard (default: null)
 * `options.hostSelector`: the query selector for the host element in relation to the widget (default: '.expander__host')
 * `options.hover`: whether the host should be hover activated (default: false)
-* `options.contentSelector`: the query selector for the expandee element in relation to the widget (default: '.expander__content')
 
 ## Events
 

@@ -7,8 +7,10 @@ const focusables = require('makeup-focusables');
 const defaultOptions = {
     autoCollapse: true,
     click: true,
+    contentSelector: '.expander__content',
     focus: false,
     focusManagement: null,
+    hostSelector: '.expander__host',
     hover: false
 };
 
@@ -37,11 +39,12 @@ module.exports = class {
         this.options = Object.assign({}, defaultOptions, selectedOptions);
 
         this.el = el;
-        this.hostEl = el.querySelector('.expander__host');
-        this.expandeeEl = el.querySelector('.expander__content');
+        this.hostEl = el.querySelector(this.options.hostSelector);
+        this.expandeeEl = el.querySelector(this.options.contentSelector);
 
-        // ensure the expandee has an id
-        nextID(this.expandeeEl, 'expandee');
+        // ensure the widget and expandee have an id
+        nextID(this.el, 'expander');
+        this.expandeeEl.id = `${this.el.id}-content`;
 
         exitEmitter.add(this.el);
         exitEmitter.add(this.expandeeEl);
