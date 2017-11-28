@@ -872,13 +872,13 @@ module.exports = function () {
                 this.hostEl.addEventListener('keydown', this._keyDownListener);
                 this.hostEl.addEventListener('click', this._clickListener);
                 if (this.options.autoCollapse === true) {
-                    this.el.addEventListener('focusExit', this._exitListener);
+                    this.expandeeEl.addEventListener('focusExit', this._exitListener);
                 }
             } else {
                 this.hostEl.removeEventListener('keydown', this._keyDownListener);
                 this.hostEl.removeEventListener('click', this._clickListener);
                 if (this.options.autoCollapse === true) {
-                    this.el.removeEventListener('focusExit', this._exitListener);
+                    this.expandeeEl.removeEventListener('focusExit', this._exitListener);
                 }
             }
         }
