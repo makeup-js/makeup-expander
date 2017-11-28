@@ -15,7 +15,7 @@ clickExpanderEls.forEach(function(el, i) {
     el.addEventListener('collapsed', function(e) {
         console.log(e);
     });
-    expanderWidgets.push(new Expander(el));
+    expanderWidgets.push(new Expander(el, { click: true }));
 });
 
 focusExpanderEls.forEach(function(el, i) {

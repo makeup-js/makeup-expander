@@ -169,7 +169,7 @@ var focusables = require('/makeup-focusables$0.0.1/index'/*'makeup-focusables'*/
 
 var defaultOptions = {
     autoCollapse: true,
-    click: true,
+    click: false,
     contentSelector: '.expander__content',
     focus: false,
     focusManagement: null,
@@ -224,10 +224,6 @@ module.exports = function () {
         this._leaveListener = this.collapse.bind(this);
 
         if (this.expandeeEl) {
-            // const newExpandee = new Expandee(this.expandeeEl, this.options);
-
-            // this.expandee = newExpandee;
-
             // the expander controls the expandee
             this.hostEl.setAttribute('aria-controls', this.expandeeEl.id);
             this.hostEl.setAttribute('aria-expanded', 'false');
@@ -235,8 +231,6 @@ module.exports = function () {
             this.click = this.options.click;
             this.focus = this.options.focus;
             this.hover = this.options.hover;
-
-            this.expandeeEl.classList.add('expandee--js');
         }
     }
 
