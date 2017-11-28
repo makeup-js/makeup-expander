@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Demo: makeup-expander</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <style>
+            .flyout {
+                position: relative;
+            }
+            .expander__content {
+                background-color: LightYellow;
+                border: 1px solid #eee;
+                display: none;
+                padding: 1rem;
+            }
+            .flyout__content {
+                left: 0;
+                position: absolute;
+                white-space: nowrap;
+                z-index: 1;
+            }
+            .expander__host[aria-expanded=true] ~ .expander__content {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <main role="main">
+            <h1>makeup-expander</h1>
+
+            <div class="expander expander--click details">
+                <button class="expander__host details__host">Click for Details</button>
+                <div class="expander__content details__content" id="tray-0">
+                    <p>Any kind of HTML control can go inside of details...</p>
+                    <p>A link: <a id="foo" href="http://www.ebay.com">www.ebay.com</a></p>
+                    <p>A button: <button>Click Me</button></p>
+                    <p>An input: <input type="text" aria-label="Dummy textbox"></p>
+                    <p>A checkbox: <input type="checkbox" aria-label="Dummy checkbox"></p>
+                </div>
+            </div>
+
+            <div class="expander expander--click flyout">
+                <button class="expander__host flyout__host">Click for Flyout</button>
+                <div class="expander__content flyout__content" id="flyout-0">
+                    <p>Any kind of HTML control can go inside of flyout...</p>
+                    <p>A link: <a id="foo" href="http://www.ebay.com">www.ebay.com</a></p>
+                    <p>A button: <button>Click Me</button></p>
+                    <p>An input: <input type="text" aria-label="Dummy textbox"></p>
+                    <p>A checkbox: <input type="checkbox" aria-label="Dummy checkbox"></p>
+                </div>
+            </div>
+
+            <div class="expander expander--focus expander--hover flyout">
+                <input class="expander__host flyout__host" placeholder="Focus or hover for flyout"/>
+                <div class="expander__content flyout__content" id="flyout-0">
+                    <p>Any kind of HTML control can go inside of flyout...</p>
+                    <p>A link: <a id="foo" href="http://www.ebay.com">www.ebay.com</a></p>
+                    <p>A button: <button>Click Me</button></p>
+                    <p>An input: <input type="text" aria-label="Dummy textbox"></p>
+                    <p>A checkbox: <input type="checkbox" aria-label="Dummy checkbox"></p>
+                </div>
+            </div>
+        </main>
+
+    </body>
+    <!-- <lasso-body> --><script src="./static/bundle.js"></script>
+<script>$_mod.ready();</script><!-- </lasso-body> -->
+</html>

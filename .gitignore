@@ -1,0 +1,19 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+node_modules
+
+# Lint output
+lint.txt
+
+# Lasso output
+.cache
+build
+test/static/bundle-test.js
+test/static/lasso-client.js
+
+# Unit Test & Code Coverage Reports
+reports
