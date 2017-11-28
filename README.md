@@ -48,7 +48,7 @@ const widgetEl = document.querySelector('.expander--click');
 // default options
 const options = {
     autoCollapse: true,
-    click: true,
+    click: false,
     contentSelector: '.expander__content',
     focus: false,
     focusManagement: null,
@@ -76,7 +76,7 @@ Clicking the button will now toggle it's aria-expanded state. CSS can be used to
 
 * `el`: the root widget el
 * `options.autoCollapse`: whether expandee should collapse when focus or mouse leaves the widget
-* `options.click`: whether the host should be click activated (default: true)
+* `options.click`: whether the host should be click activated (default: false)
 * `options.contentSelector`: the query selector for the expandee element in relation to the widget (default: '.expander__content')
 * `options.focus`: whether the host should be focus activated (default: false)
 * `options.focusManagement`: where focus should go (null, 'content', 'focusable' or ID reference) when click expander is activated with keyboard (default: null)
