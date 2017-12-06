@@ -18,22 +18,6 @@ function _onKeyDown() {
     this.keyDownFlag = true;
 }
 
-function manageFocus() {
-    const focusManagement = this.options.focusManagement;
-
-    if (focusManagement === 'content') {
-        this.el.setAttribute('tabindex', '-1');
-        this.el.focus();
-    } else if (focusManagement === 'focusable') {
-        focusables(this.el)[0].focus();
-    } else if (focusManagement !== null) {
-        const el = this.el.querySelector(`#${focusManagement}`);
-        if (el) {
-            el.focus();
-        }
-    }
-}
-
 module.exports = class {
     constructor(el, selectedOptions) {
         this.options = Object.assign({}, defaultOptions, selectedOptions);
@@ -128,7 +112,19 @@ module.exports = class {
         if (this.isExpanded() === false) {
             this.hostEl.setAttribute('aria-expanded', 'true');
             if (isKeyboard === true) {
-                manageFocus.bind(this);
+                const focusManagement = this.options.focusManagement;
+
+                if (focusManagement === 'content') {
+                    this.expandeeEl.setAttribute('tabindex', '-1');
+                    this.expandeeEl.focus();
+                } else if (focusManagement === 'focusable') {
+                    focusables(this.expandeeEl)[0].focus();
+                } else if (focusManagement !== null) {
+                    const el = this.expandeeEl.querySelector(`#${focusManagement}`);
+                    if (el) {
+                        el.focus();
+                    }
+                }
             }
             this.el.dispatchEvent(new CustomEvent('expanded', { bubbles: true, detail: this.expandeeEl }));
         }
