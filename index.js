@@ -87,6 +87,8 @@ module.exports = function () {
                         this.expandeeEl.focus();
                     } else if (focusManagement === 'focusable') {
                         focusables(this.expandeeEl)[0].focus();
+                    } else if (focusManagement === 'interactive') {
+                        focusables(this.expandeeEl, true)[0].focus();
                     } else if (focusManagement !== null) {
                         var el = this.expandeeEl.querySelector('#' + focusManagement);
                         if (el) {
