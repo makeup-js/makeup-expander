@@ -15,8 +15,8 @@ testData.forEach(function(data) {
         onCollapse = jasmine.createSpy('onCollapse');
         onExpand = jasmine.createSpy('onExpand');
 
-        widgetEl.addEventListener('expanded', onExpand);
-        widgetEl.addEventListener('collapsed', onCollapse);
+        widgetEl.addEventListener('expanderExpand', onExpand);
+        widgetEl.addEventListener('expanderCollapse', onCollapse);
 
         widget = new Expander(widgetEl, data.options);
     });

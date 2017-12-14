@@ -1244,7 +1244,7 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-custom-event-polyfill@^0.3.0, custom-event-polyfill@~0.3:
+custom-event-polyfill@~0.3:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/custom-event-polyfill/-/custom-event-polyfill-0.3.0.tgz#99807839be62edb446b645832e0d80ead6fa1888"
 
@@ -2881,17 +2881,18 @@ lru-cache@^4.0.1:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
 
-makeup-exit-emitter@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/makeup-exit-emitter/-/makeup-exit-emitter-0.0.2.tgz#837918e2b216cf0d8d1abec14325d2b565859161"
+makeup-exit-emitter@~0.0:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/makeup-exit-emitter/-/makeup-exit-emitter-0.0.3.tgz#619bce4c0ca663d662275b7db16d922896d1a99e"
   dependencies:
     custom-event-polyfill "~0.3"
+    makeup-next-id "~0.0"
 
-makeup-focusables@^0.0.1:
+makeup-focusables@~0.0:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/makeup-focusables/-/makeup-focusables-0.0.1.tgz#bf3a3cbd15425d83f7d615eff651eccca0092f66"
 
-makeup-next-id@^0.0.1:
+makeup-next-id@~0.0:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/makeup-next-id/-/makeup-next-id-0.0.1.tgz#e4bf4821616c85c96d09631aa166732006468f06"
 

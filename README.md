@@ -75,7 +75,7 @@ Clicking the button will now toggle it's aria-expanded state. CSS can be used to
 ## Params
 
 * `el`: the root widget el
-* `options.autoCollapse`: whether expandee should collapse when focus or mouse leaves the widget
+* `options.autoCollapse`: whether click-activated expander should collapse when keyboard or mouse leaves the content or widget (default: false)
 * `options.click`: whether the host should be click activated (default: false)
 * `options.contentSelector`: the query selector for the expandee element in relation to the widget (default: '.expander__content')
 * `options.focus`: whether the host should be focus activated (default: false)
@@ -85,8 +85,8 @@ Clicking the button will now toggle it's aria-expanded state. CSS can be used to
 
 ## Events
 
-* `collapsed`
-* `expanded`
+* `expanderCollapse`
+* `expanderExpand`
 
 ## Dependencies
 

@@ -50,6 +50,7 @@
                 font-size: 1em;
                 padding: 2px 4px;
                 white-space: nowrap;
+                z-index: 2;
             }
         </style>
     </head>
@@ -94,10 +95,10 @@
 
             <span class="expander expander--hover-only flyout">
                 <a class="expander__host flyout__host" href="http://www.ebay.com">Hover for Flyout</a>
-                <div class="expander expander--click-only flyout">
-                    <button class="expander__host flyout__host clipped clipped--stealth">Click for Flyout</button>
+                <div class="expander expander--stealth-only flyout">
+                    <button class="expander__host flyout__host clipped clipped--stealth">Expand Flyout</button>
                     <div class="expander__content flyout__content">
-                        <p>Any kind of HTML control can go inside...</p>
+                        <p tabindex="-1">Any kind of HTML control can go inside...</p>
                         <p>A link: <a id="foo" href="http://www.ebay.com">www.ebay.com</a></p>
                         <p>A button: <button>Click Me</button></p>
                         <p>An input: <input type="text" aria-label="Dummy textbox"></p>

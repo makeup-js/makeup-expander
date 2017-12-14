@@ -68,67 +68,110 @@ module.exports = function (el) {
 };
 
 });
-$_mod.installed("makeup-expander$0.0.3", "makeup-exit-emitter", "0.0.2");
-$_mod.main("/makeup-exit-emitter$0.0.2", "");
-$_mod.installed("makeup-exit-emitter$0.0.2", "custom-event-polyfill", "0.3.0");
-$_mod.def("/makeup-exit-emitter$0.0.2/index", function(require, exports, module, __filename, __dirname) { 'use strict';
+$_mod.installed("makeup-expander$0.0.3", "makeup-exit-emitter", "0.0.3");
+$_mod.main("/makeup-exit-emitter$0.0.3", "");
+$_mod.installed("makeup-exit-emitter$0.0.3", "custom-event-polyfill", "0.3.0");
+$_mod.installed("makeup-exit-emitter$0.0.3", "makeup-next-id", "0.0.1");
+$_mod.def("/makeup-exit-emitter$0.0.3/index", function(require, exports, module, __filename, __dirname) { 'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var nextID = require('/makeup-next-id$0.0.1/index'/*'makeup-next-id'*/);
+var focusExitEmitters = {};
 
 // requires CustomEvent polyfill for IE9+
 // https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
 
-function onFocusOrMouseOut(evt, el, type) {
-    if (el.contains(evt.relatedTarget) === false) {
-        el.dispatchEvent(new CustomEvent(type + 'Exit', {
-            detail: {
-                toElement: evt.relatedTarget,
-                fromElement: evt.target
-            },
-            bubbles: false // mirror the native mouseleave event
-        }));
+function doFocusExit(el, fromElement, toElement) {
+    el.dispatchEvent(new CustomEvent('focusExit', {
+        detail: { fromElement: fromElement, toElement: toElement },
+        bubbles: false // mirror the native mouseleave event
+    }));
+}
+
+function onDocumentFocusIn(e) {
+    var newFocusElement = e.target;
+    var targetIsDescendant = this.el.contains(newFocusElement);
+
+    // if focus has moved to a focusable descendant
+    if (targetIsDescendant === true) {
+        // set the target as the currently focussed element
+        this.currentFocusElement = newFocusElement;
+    } else {
+        // else focus has not gone to a focusable descendant
+        window.removeEventListener('blur', this.onWindowBlurListener);
+        document.removeEventListener('focusin', this.onDocumentFocusInListener);
+        doFocusExit(this.el, this.currentFocusElement, newFocusElement);
+        this.currentFocusElement = null;
     }
 }
 
-function onFocusOut(e) {
-    onFocusOrMouseOut(e, this, 'focus');
+function onWindowBlur() {
+    doFocusExit(this.el, this.currentFocusElement, undefined);
 }
 
-function onMouseOut(e) {
-    onFocusOrMouseOut(e, this, 'mouse');
+function onWidgetFocusIn() {
+    // listen for focus moving to anywhere in document
+    // note that mouse click on buttons, checkboxes and radios does not trigger focus events in all browsers!
+    document.addEventListener('focusin', this.onDocumentFocusInListener);
+    // listen for focus leaving the window
+    window.addEventListener('blur', this.onWindowBlurListener);
 }
+
+var FocusExitEmitter = function () {
+    function FocusExitEmitter(el) {
+        _classCallCheck(this, FocusExitEmitter);
+
+        this.el = el;
+
+        this.currentFocusElement = null;
+
+        this.onWidgetFocusInListener = onWidgetFocusIn.bind(this);
+        this.onDocumentFocusInListener = onDocumentFocusIn.bind(this);
+        this.onWindowBlurListener = onWindowBlur.bind(this);
+
+        this.el.addEventListener('focusin', this.onWidgetFocusInListener);
+    }
+
+    _createClass(FocusExitEmitter, [{
+        key: 'removeEventListeners',
+        value: function removeEventListeners() {
+            window.removeEventListener('blur', this.onWindowBlurListener);
+            document.removeEventListener('focusin', this.onDocumentFocusInListener);
+            this.el.removeEventListener('focusin', this.onWidgetFocusInListener);
+        }
+    }]);
+
+    return FocusExitEmitter;
+}();
 
 function addFocusExit(el) {
-    el.addEventListener('focusout', onFocusOut);
+    var exitEmitter = null;
+
+    nextID(el);
+
+    if (!focusExitEmitters[el.id]) {
+        exitEmitter = new FocusExitEmitter(el);
+        focusExitEmitters[el.id] = exitEmitter;
+    }
+
+    return exitEmitter;
 }
 
 function removeFocusExit(el) {
-    el.removeEventListener('focusout', onFocusOut);
-}
+    var exitEmitter = focusExitEmitters[el.id];
 
-function addMouseExit(el) {
-    el.addEventListener('mouseout', onMouseOut);
-}
-
-function removeMouseExit(el) {
-    el.removeEventListener('mouseout', onMouseOut);
-}
-
-function add(el) {
-    addFocusExit(el);
-    addMouseExit(el);
-}
-
-function remove(el) {
-    removeFocusExit(el);
-    removeMouseExit(el);
+    if (exitEmitter) {
+        exitEmitter.removeEventListeners();
+        delete focusExitEmitters[el.id];
+    }
 }
 
 module.exports = {
     addFocusExit: addFocusExit,
-    addMouseExit: addMouseExit,
-    removeFocusExit: removeFocusExit,
-    removeMouseExit: removeMouseExit,
-    add: add,
-    remove: remove
+    removeFocusExit: removeFocusExit
 };
 
 });
@@ -164,11 +207,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var nextID = require('/makeup-next-id$0.0.1/index'/*'makeup-next-id'*/);
-var exitEmitter = require('/makeup-exit-emitter$0.0.2/index'/*'makeup-exit-emitter'*/);
+var ExitEmitter = require('/makeup-exit-emitter$0.0.3/index'/*'makeup-exit-emitter'*/);
 var focusables = require('/makeup-focusables$0.0.1/index'/*'makeup-focusables'*/);
 
 var defaultOptions = {
-    autoCollapse: true,
+    autoCollapse: false,
     click: false,
     contentSelector: '.expander__content',
     focus: false,
@@ -195,17 +238,15 @@ module.exports = function () {
         nextID(this.el, 'expander');
         this.expandeeEl.id = this.el.id + '-content';
 
-        exitEmitter.add(this.el);
-        exitEmitter.add(this.expandeeEl);
+        ExitEmitter.addFocusExit(this.el);
 
-        this._keyDownListener = _onKeyDown.bind(this);
-        this._clickListener = this.toggle.bind(this);
-        this._focusListener = this.expand.bind(this);
-        this._hoverListener = this.expand.bind(this);
+        this._hostKeyDownListener = _onKeyDown.bind(this);
+        this._hostClickListener = this.toggle.bind(this);
+        this._hostFocusListener = this.expand.bind(this);
+        this._hostHoverListener = this.expand.bind(this);
 
-        this._exitListener = this.collapse.bind(this);
-        this._expandeeExitListener = this.collapse.bind(this);
-        this._leaveListener = this.collapse.bind(this);
+        this._focusExitListener = this.collapse.bind(this);
+        this._mouseLeaveListener = this.collapse.bind(this);
 
         if (this.expandeeEl) {
             // the expander controls the expandee
@@ -215,6 +256,8 @@ module.exports = function () {
             this.click = this.options.click;
             this.focus = this.options.focus;
             this.hover = this.options.hover;
+
+            this.autoCollapse = this.options.autoCollapse;
         }
     }
 
@@ -228,7 +271,7 @@ module.exports = function () {
         value: function collapse() {
             if (this.isExpanded() === true) {
                 this.hostEl.setAttribute('aria-expanded', 'false');
-                this.el.dispatchEvent(new CustomEvent('collapsed', { bubbles: true, detail: this.expandeeEl }));
+                this.el.dispatchEvent(new CustomEvent('expanderCollapse', { bubbles: true, detail: this.expandeeEl }));
             }
         }
     }, {
@@ -253,7 +296,7 @@ module.exports = function () {
                         }
                     }
                 }
-                this.el.dispatchEvent(new CustomEvent('expanded', { bubbles: true, detail: this.expandeeEl }));
+                this.el.dispatchEvent(new CustomEvent('expanderExpand', { bubbles: true, detail: this.expandeeEl }));
             }
         }
     }, {
@@ -267,50 +310,49 @@ module.exports = function () {
             this.keyDownFlag = false;
         }
     }, {
+        key: 'autoCollapse',
+        set: function set(bool) {
+            // hover and focus expanders will always collapse
+            if (this.options.focus === true || this.options.hover === true || this.options.autoCollapse === true) {
+                this.el.addEventListener('focusExit', this._focusExitListener);
+                this.el.addEventListener('mouseleave', this._mouseLeaveListener);
+
+                if (this.options.focus !== true) {
+                    this.hostEl.addEventListener('focus', this._focusExitListener);
+                }
+            } else {
+                this.el.removeEventListener('mouseleave', this._mouseLeaveListener);
+                this.el.removeEventListener('focusExit', this._focusExitListener);
+                this.hostEl.removeEventListener('focus', this._focusExitListener);
+            }
+        }
+    }, {
         key: 'click',
         set: function set(bool) {
             if (bool === true) {
-                this.hostEl.addEventListener('keydown', this._keyDownListener);
-                this.hostEl.addEventListener('click', this._clickListener);
-                if (this.options.autoCollapse === true) {
-                    this.expandeeEl.addEventListener('focusExit', this._exitListener);
-                }
+                this.hostEl.addEventListener('keydown', this._hostKeyDownListener);
+                this.hostEl.addEventListener('click', this._hostClickListener);
             } else {
-                this.hostEl.removeEventListener('keydown', this._keyDownListener);
-                this.hostEl.removeEventListener('click', this._clickListener);
-                if (this.options.autoCollapse === true) {
-                    this.expandeeEl.removeEventListener('focusExit', this._exitListener);
-                }
+                this.hostEl.removeEventListener('keydown', this._hostKeyDownListener);
+                this.hostEl.removeEventListener('click', this._hostClickListener);
             }
         }
     }, {
         key: 'focus',
         set: function set(bool) {
             if (bool === true) {
-                this.hostEl.addEventListener('focus', this._focusListener);
-                if (this.options.autoCollapse === true) {
-                    this.el.addEventListener('focusExit', this._expandeeExitListener);
-                }
+                this.hostEl.addEventListener('focus', this._hostFocusListener);
             } else {
-                this.hostEl.removeEventListener('focus', this._focusListener);
-                if (this.options.autoCollapse === true) {
-                    this.el.removeEventListener('focusExit', this._expandeeExitListener);
-                }
+                this.hostEl.removeEventListener('focus', this._hostFocusListener);
             }
         }
     }, {
         key: 'hover',
         set: function set(bool) {
             if (bool === true) {
-                this.hostEl.addEventListener('mouseenter', this._hoverListener);
-                if (this.options.autoCollapse === true) {
-                    this.el.addEventListener('mouseleave', this._leaveListener);
-                }
+                this.hostEl.addEventListener('mouseenter', this._hostHoverListener);
             } else {
-                this.hostEl.removeEventListener('mouseenter', this._hoverListener);
-                if (this.options.autoCollapse === true) {
-                    this.el.removeEventListener('mouseleave', this._leaveListener);
-                }
+                this.hostEl.removeEventListener('mouseenter', this._hostHoverListener);
             }
         }
     }]);

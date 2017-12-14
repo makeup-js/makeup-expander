@@ -7,11 +7,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var nextID = require('makeup-next-id');
-var exitEmitter = require('makeup-exit-emitter');
+var ExitEmitter = require('makeup-exit-emitter');
 var focusables = require('makeup-focusables');
 
 var defaultOptions = {
-    autoCollapse: true,
+    autoCollapse: false,
     click: false,
     contentSelector: '.expander__content',
     focus: false,
@@ -38,17 +38,15 @@ module.exports = function () {
         nextID(this.el, 'expander');
         this.expandeeEl.id = this.el.id + '-content';
 
-        exitEmitter.add(this.el);
-        exitEmitter.add(this.expandeeEl);
+        ExitEmitter.addFocusExit(this.el);
 
-        this._keyDownListener = _onKeyDown.bind(this);
-        this._clickListener = this.toggle.bind(this);
-        this._focusListener = this.expand.bind(this);
-        this._hoverListener = this.expand.bind(this);
+        this._hostKeyDownListener = _onKeyDown.bind(this);
+        this._hostClickListener = this.toggle.bind(this);
+        this._hostFocusListener = this.expand.bind(this);
+        this._hostHoverListener = this.expand.bind(this);
 
-        this._exitListener = this.collapse.bind(this);
-        this._expandeeExitListener = this.collapse.bind(this);
-        this._leaveListener = this.collapse.bind(this);
+        this._focusExitListener = this.collapse.bind(this);
+        this._mouseLeaveListener = this.collapse.bind(this);
 
         if (this.expandeeEl) {
             // the expander controls the expandee
@@ -58,6 +56,8 @@ module.exports = function () {
             this.click = this.options.click;
             this.focus = this.options.focus;
             this.hover = this.options.hover;
+
+            this.autoCollapse = this.options.autoCollapse;
         }
     }
 
@@ -71,7 +71,7 @@ module.exports = function () {
         value: function collapse() {
             if (this.isExpanded() === true) {
                 this.hostEl.setAttribute('aria-expanded', 'false');
-                this.el.dispatchEvent(new CustomEvent('collapsed', { bubbles: true, detail: this.expandeeEl }));
+                this.el.dispatchEvent(new CustomEvent('expanderCollapse', { bubbles: true, detail: this.expandeeEl }));
             }
         }
     }, {
@@ -96,7 +96,7 @@ module.exports = function () {
                         }
                     }
                 }
-                this.el.dispatchEvent(new CustomEvent('expanded', { bubbles: true, detail: this.expandeeEl }));
+                this.el.dispatchEvent(new CustomEvent('expanderExpand', { bubbles: true, detail: this.expandeeEl }));
             }
         }
     }, {
@@ -110,50 +110,49 @@ module.exports = function () {
             this.keyDownFlag = false;
         }
     }, {
+        key: 'autoCollapse',
+        set: function set(bool) {
+            // hover and focus expanders will always collapse
+            if (this.options.focus === true || this.options.hover === true || this.options.autoCollapse === true) {
+                this.el.addEventListener('focusExit', this._focusExitListener);
+                this.el.addEventListener('mouseleave', this._mouseLeaveListener);
+
+                if (this.options.focus !== true) {
+                    this.hostEl.addEventListener('focus', this._focusExitListener);
+                }
+            } else {
+                this.el.removeEventListener('mouseleave', this._mouseLeaveListener);
+                this.el.removeEventListener('focusExit', this._focusExitListener);
+                this.hostEl.removeEventListener('focus', this._focusExitListener);
+            }
+        }
+    }, {
         key: 'click',
         set: function set(bool) {
             if (bool === true) {
-                this.hostEl.addEventListener('keydown', this._keyDownListener);
-                this.hostEl.addEventListener('click', this._clickListener);
-                if (this.options.autoCollapse === true) {
-                    this.expandeeEl.addEventListener('focusExit', this._exitListener);
-                }
+                this.hostEl.addEventListener('keydown', this._hostKeyDownListener);
+                this.hostEl.addEventListener('click', this._hostClickListener);
             } else {
-                this.hostEl.removeEventListener('keydown', this._keyDownListener);
-                this.hostEl.removeEventListener('click', this._clickListener);
-                if (this.options.autoCollapse === true) {
-                    this.expandeeEl.removeEventListener('focusExit', this._exitListener);
-                }
+                this.hostEl.removeEventListener('keydown', this._hostKeyDownListener);
+                this.hostEl.removeEventListener('click', this._hostClickListener);
             }
         }
     }, {
         key: 'focus',
         set: function set(bool) {
             if (bool === true) {
-                this.hostEl.addEventListener('focus', this._focusListener);
-                if (this.options.autoCollapse === true) {
-                    this.el.addEventListener('focusExit', this._expandeeExitListener);
-                }
+                this.hostEl.addEventListener('focus', this._hostFocusListener);
             } else {
-                this.hostEl.removeEventListener('focus', this._focusListener);
-                if (this.options.autoCollapse === true) {
-                    this.el.removeEventListener('focusExit', this._expandeeExitListener);
-                }
+                this.hostEl.removeEventListener('focus', this._hostFocusListener);
             }
         }
     }, {
         key: 'hover',
         set: function set(bool) {
             if (bool === true) {
-                this.hostEl.addEventListener('mouseenter', this._hoverListener);
-                if (this.options.autoCollapse === true) {
-                    this.el.addEventListener('mouseleave', this._leaveListener);
-                }
+                this.hostEl.addEventListener('mouseenter', this._hostHoverListener);
             } else {
-                this.hostEl.removeEventListener('mouseenter', this._hoverListener);
-                if (this.options.autoCollapse === true) {
-                    this.el.removeEventListener('mouseleave', this._leaveListener);
-                }
+                this.hostEl.removeEventListener('mouseenter', this._hostHoverListener);
             }
         }
     }]);

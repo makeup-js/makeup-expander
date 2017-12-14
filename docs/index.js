@@ -7,6 +7,7 @@ var clickExpanderEls = nodeListToArray(document.querySelectorAll('.expander--cli
 var focusExpanderEls = nodeListToArray(document.querySelectorAll('.expander--focus-only'));
 var hoverExpanderEls = nodeListToArray(document.querySelectorAll('.expander--hover-only'));
 var hoverAndFocusExpanderEls = nodeListToArray(document.querySelectorAll('.expander--focus-and-hover'));
+var stealthExpanderEls = nodeListToArray(document.querySelectorAll('.expander--stealth-only'));
 var expanderWidgets = [];
 
 clickExpanderEls.forEach(function(el, i) {
@@ -25,11 +26,15 @@ hoverAndFocusExpanderEls.forEach(function(el, i) {
     expanderWidgets.push(new Expander(el, { focus: true, hover: true }));
 });
 
+stealthExpanderEls.forEach(function(el, i) {
+    expanderWidgets.push(new Expander(el, { autoCollapse: true, click: true, focusManagement: 'focusable' }));
+});
+
 expanderWidgets.forEach(function(item, i) {
-    item.el.addEventListener('expanded', function(e) {
+    item.el.addEventListener('expanderExpand', function(e) {
         console.log(e);
     });
-    item.el.addEventListener('collapsed', function(e) {
+    item.el.addEventListener('expanderCollapse', function(e) {
         console.log(e);
     });
 });
