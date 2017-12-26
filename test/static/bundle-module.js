@@ -271,7 +271,7 @@ module.exports = function () {
         value: function collapse() {
             if (this.isExpanded() === true) {
                 this.hostEl.setAttribute('aria-expanded', 'false');
-                this.el.dispatchEvent(new CustomEvent('expanderCollapse', { bubbles: true, detail: this.expandeeEl }));
+                this.el.dispatchEvent(new CustomEvent('expander-collapse', { bubbles: true, detail: this.expandeeEl }));
             }
         }
     }, {
@@ -296,7 +296,7 @@ module.exports = function () {
                         }
                     }
                 }
-                this.el.dispatchEvent(new CustomEvent('expanderExpand', { bubbles: true, detail: this.expandeeEl }));
+                this.el.dispatchEvent(new CustomEvent('expander-expand', { bubbles: true, detail: this.expandeeEl }));
             }
         }
     }, {

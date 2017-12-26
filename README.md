@@ -85,8 +85,8 @@ Clicking the button will now toggle it's aria-expanded state. CSS can be used to
 
 ## Events
 
-* `expanderCollapse`
-* `expanderExpand`
+* `expander-collapse`
+* `expander-expand`
 
 ## Dependencies
 

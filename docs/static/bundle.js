@@ -865,7 +865,7 @@ module.exports = function () {
         value: function collapse() {
             if (this.isExpanded() === true) {
                 this.hostEl.setAttribute('aria-expanded', 'false');
-                this.el.dispatchEvent(new CustomEvent('expanderCollapse', { bubbles: true, detail: this.expandeeEl }));
+                this.el.dispatchEvent(new CustomEvent('expander-collapse', { bubbles: true, detail: this.expandeeEl }));
             }
         }
     }, {
@@ -890,7 +890,7 @@ module.exports = function () {
                         }
                     }
                 }
-                this.el.dispatchEvent(new CustomEvent('expanderExpand', { bubbles: true, detail: this.expandeeEl }));
+                this.el.dispatchEvent(new CustomEvent('expander-expand', { bubbles: true, detail: this.expandeeEl }));
             }
         }
     }, {
@@ -988,10 +988,10 @@ stealthExpanderEls.forEach(function(el, i) {
 });
 
 expanderWidgets.forEach(function(item, i) {
-    item.el.addEventListener('expanderExpand', function(e) {
+    item.el.addEventListener('expander-expand', function(e) {
         console.log(e);
     });
-    item.el.addEventListener('expanderCollapse', function(e) {
+    item.el.addEventListener('expander-collapse', function(e) {
         console.log(e);
     });
 });

@@ -31,10 +31,10 @@ stealthExpanderEls.forEach(function(el, i) {
 });
 
 expanderWidgets.forEach(function(item, i) {
-    item.el.addEventListener('expanderExpand', function(e) {
+    item.el.addEventListener('expander-expand', function(e) {
         console.log(e);
     });
-    item.el.addEventListener('expanderCollapse', function(e) {
+    item.el.addEventListener('expander-collapse', function(e) {
         console.log(e);
     });
 });
