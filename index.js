@@ -51,7 +51,10 @@ module.exports = function () {
         if (this.expandeeEl) {
             // the expander controls the expandee
             this.hostEl.setAttribute('aria-controls', this.expandeeEl.id);
-            this.hostEl.setAttribute('aria-expanded', 'false');
+
+            if (this.hostEl.getAttribute('aria-expanded') === null) {
+                this.hostEl.setAttribute('aria-expanded', 'false');
+            }
 
             this.click = this.options.click;
             this.focus = this.options.focus;
