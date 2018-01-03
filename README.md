@@ -26,7 +26,7 @@ yarn add makeup-expander
 ## Example
 
 ```html
-<div class="expander expander--click">
+<div class="expander">
     <button class="expander__host">Click for Flyout</button>
     <div class="expander__content">
         <p>Any kind of HTML control can go inside...</p>
@@ -43,17 +43,11 @@ yarn add makeup-expander
 const Expander = require('makeup-expander');
 
 // get an element reference
-const widgetEl = document.querySelector('.expander--click');
+const widgetEl = document.querySelector('.expander');
 
-// default options
+// options
 const options = {
-    autoCollapse: true,
-    click: false,
-    contentSelector: '.expander__content',
-    focus: false,
-    focusManagement: null,
-    hostSelector: '.expander__host',
-    hover: false
+    click: true
 };
 
 // get widget instance
@@ -67,7 +61,7 @@ Clicking the button will now toggle it's aria-expanded state. CSS can be used to
     display: none;
 }
 
-.expander__host[aria-expanded=true] ~ .expander__content {
+.expander__host[aria-expanded="true"] ~ .expander__content {
     display: block;
 }
 ```
