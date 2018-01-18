@@ -11,7 +11,9 @@ const defaultOptions = {
     focus: false,
     focusManagement: null,
     hostSelector: '.expander__host',
-    hover: false
+    hover: false,
+    ariaHostSelector: null,
+    expandedClass: null
 };
 
 function _onKeyDown() {
@@ -24,6 +26,7 @@ module.exports = class {
 
         this.el = el;
         this.hostEl = el.querySelector(this.options.hostSelector);
+        this.ariaHostEl = el.querySelector(this.options.ariaHostSelector) || this.hostEl;
         this.expandeeEl = el.querySelector(this.options.contentSelector);
 
         // ensure the widget and expandee have an id
@@ -42,10 +45,14 @@ module.exports = class {
 
         if (this.expandeeEl) {
             // the expander controls the expandee
-            this.hostEl.setAttribute('aria-controls', this.expandeeEl.id);
+            this.ariaHostEl.setAttribute('aria-controls', this.expandeeEl.id);
 
-            if (this.hostEl.getAttribute('aria-expanded') === null) {
-                this.hostEl.setAttribute('aria-expanded', 'false');
+            if (this.ariaHostEl.getAttribute('aria-expanded') === null) {
+                this.ariaHostEl.setAttribute('aria-expanded', 'false');
+            }
+
+            if (this.options.ariaHostSelector !== null && this.options.expandedClass === null) {
+                this.options.expandedClass = 'expanded';
             }
 
             this.click = this.options.click;
@@ -63,12 +70,12 @@ module.exports = class {
             this.el.addEventListener('mouseleave', this._mouseLeaveListener);
 
             if (this.options.focus !== true) {
-                this.hostEl.addEventListener('focus', this._focusExitListener);
+                this.ariaHostEl.addEventListener('focus', this._focusExitListener);
             }
         } else {
             this.el.removeEventListener('mouseleave', this._mouseLeaveListener);
             this.el.removeEventListener('focusExit', this._focusExitListener);
-            this.hostEl.removeEventListener('focus', this._focusExitListener);
+            this.ariaHostEl.removeEventListener('focus', this._focusExitListener);
         }
     }
 
@@ -84,9 +91,9 @@ module.exports = class {
 
     set focus(bool) {
         if (bool === true) {
-            this.hostEl.addEventListener('focus', this._hostFocusListener);
+            this.ariaHostEl.addEventListener('focus', this._hostFocusListener);
         } else {
-            this.hostEl.removeEventListener('focus', this._hostFocusListener);
+            this.ariaHostEl.removeEventListener('focus', this._hostFocusListener);
         }
     }
 
@@ -99,19 +106,25 @@ module.exports = class {
     }
 
     isExpanded() {
-        return this.hostEl.getAttribute('aria-expanded') === 'true';
+        return this.ariaHostEl.getAttribute('aria-expanded') === 'true';
     }
 
     collapse() {
         if (this.isExpanded() === true) {
-            this.hostEl.setAttribute('aria-expanded', 'false');
+            if (this.options.expandedClass) {
+                this.hostEl.classList.remove(this.options.expandedClass);
+            }
+            this.ariaHostEl.setAttribute('aria-expanded', 'false');
             this.el.dispatchEvent(new CustomEvent('expander-collapse', { bubbles: true, detail: this.expandeeEl }));
         }
     }
 
     expand(isKeyboard) {
         if (this.isExpanded() === false) {
-            this.hostEl.setAttribute('aria-expanded', 'true');
+            if (this.options.expandedClass) {
+                this.hostEl.classList.add(this.options.expandedClass);
+            }
+            this.ariaHostEl.setAttribute('aria-expanded', 'true');
             if (isKeyboard === true) {
                 const focusManagement = this.options.focusManagement;
 
