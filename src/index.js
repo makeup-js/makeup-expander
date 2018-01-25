@@ -52,7 +52,7 @@ module.exports = class {
             }
 
             if (this.options.ariaHostSelector !== null && this.options.expandedClass === null) {
-                this.options.expandedClass = 'expanded';
+                this.options.expandedClass = 'expander-expanded';
             }
 
             this.click = this.options.click;
