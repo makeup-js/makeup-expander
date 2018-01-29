@@ -218,6 +218,7 @@ var defaultOptions = {
     focusManagement: null,
     hostSelector: '.expander__host',
     hover: false,
+    hostType: null,
     ariaHostSelector: null,
     expandedClass: null
 };
@@ -257,6 +258,10 @@ module.exports = function () {
 
             if (this.ariaHostEl.getAttribute('aria-expanded') === null) {
                 this.ariaHostEl.setAttribute('aria-expanded', 'false');
+            }
+
+            if (this.options.hostType === null) {
+                this.options.hostType = 'button';
             }
 
             if (this.options.ariaHostSelector !== null && this.options.expandedClass === null) {
@@ -326,6 +331,17 @@ module.exports = function () {
             this.keyDownFlag = false;
         }
     }, {
+        key: 'inputKeyboardClick',
+        value: function inputKeyboardClick(e) {
+            this.keyDownFlag = true;
+
+            if (e.keyCode === 32) {
+                this.toggle();
+            } else if (e.keyCode === 40) {
+                this.expand(this.keyDownFlag);
+            }
+        }
+    }, {
         key: 'autoCollapse',
         set: function set(bool) {
             // hover and focus expanders will always collapse
@@ -345,9 +361,12 @@ module.exports = function () {
     }, {
         key: 'click',
         set: function set(bool) {
-            if (bool === true) {
+            if (bool === true && this.options.hostType !== 'readonlyCombobox') {
                 this.hostEl.addEventListener('keydown', this._hostKeyDownListener);
                 this.hostEl.addEventListener('click', this._hostClickListener);
+            } else if (bool === true && this.options.hostType === 'readonlyCombobox') {
+                this.ariaHostEl.addEventListener('keydown', this.inputKeyboardClick.bind(this));
+                this.ariaHostEl.addEventListener('click', this._hostClickListener);
             } else {
                 this.hostEl.removeEventListener('keydown', this._hostKeyDownListener);
                 this.hostEl.removeEventListener('click', this._hostClickListener);

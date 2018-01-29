@@ -16,7 +16,12 @@ clickExpanderEls.forEach(function(el, i) {
 });
 
 clickNestedExpanderEls.forEach(function(el, i) {
-    expanderWidgets.push(new Expander(el, { click: true, ariaHostSelector: '.expander__host > .flyout__host' }));
+    expanderWidgets.push(new Expander(el, {
+        click: true,
+        hostType: 'readonlyCombobox',
+        ariaHostSelector: '.expander__host > input',
+        focusManagement: 'focusable'
+    }));
 });
 
 focusExpanderEls.forEach(function(el, i) {
@@ -32,7 +37,11 @@ hoverAndFocusExpanderEls.forEach(function(el, i) {
 });
 
 stealthExpanderEls.forEach(function(el, i) {
-    expanderWidgets.push(new Expander(el, { autoCollapse: true, click: true, focusManagement: 'focusable' }));
+    expanderWidgets.push(new Expander(el, {
+        autoCollapse: true,
+        click: true,
+        focusManagement: 'focusable'
+    }));
 });
 
 expanderWidgets.forEach(function(item, i) {
