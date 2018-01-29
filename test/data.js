@@ -1,9 +1,14 @@
 'use strict';
 
 var htmlTemplate1 = '<span class="expander">'
-    + '<button class="expander__host"><button>'
+    + '<button class="expander__host"></button>'
     + '<div class="expander__content"></div>'
 + '</span>';
+
+var htmlTemplate2 = '<span class="expander">'
+    + '<span class="expander__host"><button></button></span>'
+    + '<div class="expander__content"></div>'
+    + '</span>';
 
 module.exports = [
     {

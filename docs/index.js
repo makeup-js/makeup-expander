@@ -4,6 +4,7 @@ function nodeListToArray(nodeList) {
 
 var Expander = require('../index.js');
 var clickExpanderEls = nodeListToArray(document.querySelectorAll('.expander--click-only'));
+var clickNestedExpanderEls = nodeListToArray(document.querySelectorAll('.expander--click-only-nested'));
 var focusExpanderEls = nodeListToArray(document.querySelectorAll('.expander--focus-only'));
 var hoverExpanderEls = nodeListToArray(document.querySelectorAll('.expander--hover-only'));
 var hoverAndFocusExpanderEls = nodeListToArray(document.querySelectorAll('.expander--focus-and-hover'));
@@ -12,6 +13,15 @@ var expanderWidgets = [];
 
 clickExpanderEls.forEach(function(el, i) {
     expanderWidgets.push(new Expander(el, { click: true }));
+});
+
+clickNestedExpanderEls.forEach(function(el, i) {
+    expanderWidgets.push(new Expander(el, {
+        click: true,
+        hostType: 'readonlyCombobox',
+        ariaHostSelector: '.expander__host > input',
+        focusManagement: 'focusable'
+    }));
 });
 
 focusExpanderEls.forEach(function(el, i) {
@@ -27,7 +37,11 @@ hoverAndFocusExpanderEls.forEach(function(el, i) {
 });
 
 stealthExpanderEls.forEach(function(el, i) {
-    expanderWidgets.push(new Expander(el, { autoCollapse: true, click: true, focusManagement: 'focusable' }));
+    expanderWidgets.push(new Expander(el, {
+        autoCollapse: true,
+        click: true,
+        focusManagement: 'focusable'
+    }));
 });
 
 expanderWidgets.forEach(function(item, i) {
