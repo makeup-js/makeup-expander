@@ -216,12 +216,25 @@ var defaultOptions = {
     contentSelector: '.expander__content',
     focus: false,
     focusManagement: null,
+    hostContainerClass: 'expander__host-container',
     hostSelector: '.expander__host',
-    hover: false
+    hover: false,
+    spacebar: false
 };
 
-function _onKeyDown() {
-    this.keyDownFlag = true;
+// when options.click is true, we set a flag onkeydown if spacebar or enter are pressed
+function _onKeyDown(e) {
+    var keyCode = e.keyCode;
+
+    if (keyCode === 13 || keyCode === 32) {
+        this.keyDownFlag = true;
+
+        // if hostEl does not naturally trigger click events, we can force one to trigger here.
+        // careful! if host already triggers click events naturally, we end up with a "double-click".
+        if (keyCode === 32 && this.options.spacebar === true) {
+            this.hostEl.click();
+        }
+    }
 }
 
 module.exports = function () {
@@ -231,8 +244,10 @@ module.exports = function () {
         this.options = _extends({}, defaultOptions, selectedOptions);
 
         this.el = el;
-        this.hostEl = el.querySelector(this.options.hostSelector);
+        this.hostEl = el.querySelector(this.options.hostSelector); // the keyboard focusable host el
         this.expandeeEl = el.querySelector(this.options.contentSelector);
+        this.hostContainerEl = null;
+        this.hostContainerExpandedClass = this.options.hostContainerClass + '--expanded';
 
         // ensure the widget and expandee have an id
         nextID(this.el, 'expander');
@@ -248,8 +263,13 @@ module.exports = function () {
         this._focusExitListener = this.collapse.bind(this);
         this._mouseLeaveListener = this.collapse.bind(this);
 
+        // if the host el is nested one level deep we need a reference to it's container
+        if (this.hostEl.parentNode !== this.el) {
+            this.hostContainerEl = this.hostEl.parentNode;
+            this.hostContainerEl.classList.add(this.options.hostContainerClass);
+        }
+
         if (this.expandeeEl) {
-            // the expander controls the expandee
             this.hostEl.setAttribute('aria-controls', this.expandeeEl.id);
 
             if (this.hostEl.getAttribute('aria-expanded') === null) {
@@ -274,6 +294,9 @@ module.exports = function () {
         value: function collapse() {
             if (this.isExpanded() === true) {
                 this.hostEl.setAttribute('aria-expanded', 'false');
+                if (this.hostContainerEl) {
+                    this.hostContainerEl.classList.remove(this.hostContainerExpandedClass);
+                }
                 this.el.dispatchEvent(new CustomEvent('expander-collapse', { bubbles: true, detail: this.expandeeEl }));
             }
         }
@@ -282,6 +305,9 @@ module.exports = function () {
         value: function expand(isKeyboard) {
             if (this.isExpanded() === false) {
                 this.hostEl.setAttribute('aria-expanded', 'true');
+                if (this.hostContainerEl) {
+                    this.hostContainerEl.classList.add(this.hostContainerExpandedClass);
+                }
                 if (isKeyboard === true) {
                     var focusManagement = this.options.focusManagement;
 
@@ -334,10 +360,18 @@ module.exports = function () {
         set: function set(bool) {
             if (bool === true) {
                 this.hostEl.addEventListener('keydown', this._hostKeyDownListener);
-                this.hostEl.addEventListener('click', this._hostClickListener);
+                if (this.hostContainerEl) {
+                    this.hostContainerEl.addEventListener('click', this._hostClickListener);
+                } else {
+                    this.hostEl.addEventListener('click', this._hostClickListener);
+                }
             } else {
                 this.hostEl.removeEventListener('keydown', this._hostKeyDownListener);
-                this.hostEl.removeEventListener('click', this._hostClickListener);
+                if (this.hostContainerEl) {
+                    this.hostContainerEl.removeEventListener('click', this._hostClickListener);
+                } else {
+                    this.hostEl.removeEventListener('click', this._hostClickListener);
+                }
             }
         }
     }, {
@@ -353,9 +387,17 @@ module.exports = function () {
         key: 'hover',
         set: function set(bool) {
             if (bool === true) {
-                this.hostEl.addEventListener('mouseenter', this._hostHoverListener);
+                if (this.hostContainerEl) {
+                    this.hostContainerEl.addEventListener('mouseenter', this._hostHoverListener);
+                } else {
+                    this.hostEl.addEventListener('mouseenter', this._hostHoverListener);
+                }
             } else {
-                this.hostEl.removeEventListener('mouseenter', this._hostHoverListener);
+                if (this.hostContainerEl) {
+                    this.hostContainerEl.removeEventListener('mouseenter', this._hostHoverListener);
+                } else {
+                    this.hostEl.removeEventListener('mouseenter', this._hostHoverListener);
+                }
             }
         }
     }]);
