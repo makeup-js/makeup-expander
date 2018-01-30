@@ -24,7 +24,8 @@
                 z-index: 1;
             }
             .expander__host[aria-expanded=true] ~ .expander__content,
-            .expander__host[aria-expanded=true] ~ .expander  .expander__content {
+            .expander__host[aria-expanded=true] ~ .expander  .expander__content,
+            .expander__host-container--expanded ~ .expander__content {
                 display: block;
             }
             .clipped {
@@ -53,15 +54,25 @@
                 white-space: nowrap;
                 z-index: 2;
             }
+            .expander__icon {
+                background-color: #006699;
+                border-radius: 1px;
+                display: block;
+                height: 20px;
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 20px;
+            }
         </style>
     </head>
     <body>
         <main role="main">
             <h1>makeup-expander</h1>
 
-            <div class="expander expander--click-only details">
-                <button class="expander__host details__host">Click for Details</button>
-                <div class="expander__content details__content">
+            <div class="expander expander--click-only">
+                <button class="expander__host">Click for Details</button>
+                <div class="expander__content">
                     <p>Any kind of HTML control can go inside...</p>
                     <p>A link: <a id="foo" href="http://www.ebay.com">www.ebay.com</a></p>
                     <p>A button: <button>Click Me</button></p>
@@ -107,8 +118,23 @@
                     </div>
                 </div>
             </span>
-        </main>
 
+            <hr />
+
+            <span class="expander expander--click-and-spacebar flyout">
+                <span style="position:relative">
+                    <input class="expander__host flyout__host" placeholder="Click readonly input for flyout" readonly size="25" type="text"/>
+                    <span class="expander__icon"></span>
+                </span>
+                <div class="expander__content flyout__content">
+                    <p>Any kind of HTML control can go inside...</p>
+                    <p>A link: <a id="foo" href="http://www.ebay.com">www.ebay.com</a></p>
+                    <p>A button: <button>Click Me</button></p>
+                    <p>An input: <input type="text" aria-label="Dummy textbox"></p>
+                    <p>A checkbox: <input type="checkbox" aria-label="Dummy checkbox"></p>
+                </div>
+            </span>
+        </main>
     </body>
     <!-- <lasso-body> --><script src="./static/bundle.js"></script>
 <script>$_mod.ready();</script><!-- </lasso-body> -->

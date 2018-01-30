@@ -76,6 +76,7 @@ Clicking the button will now toggle it's aria-expanded state. CSS can be used to
 * `options.focusManagement`: where focus should go (null, 'content', 'focusable', 'interactive', or ID reference) when click expander is activated with keyboard (default: null)
 * `options.hostSelector`: the query selector for the host element in relation to the widget (default: '.expander__host')
 * `options.hover`: whether the host should be hover activated (default: false)
+* `options.spacebar` whether spacebar should force a click event (do not use if host already triggers click events!) (default: false)
 
 ## Events
 
