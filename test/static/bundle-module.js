@@ -251,7 +251,7 @@ module.exports = function () {
 
         // ensure the widget and expandee have an id
         nextID(this.el, 'expander');
-        this.expandeeEl.id = this.el.id + '-content';
+        nextID(this.expandeeEl, this.el.id + '-content');
 
         ExitEmitter.addFocusExit(this.el);
 
