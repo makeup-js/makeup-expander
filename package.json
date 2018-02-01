@@ -39,7 +39,7 @@
     "eslint": "^4",
     "eslint-config-ebay": "~0.1",
     "jasmine-core": "^2",
-    "karma": "^1",
+    "karma": "^2",
     "karma-coverage": "^1",
     "karma-html-reporter": "~0.2",
     "karma-jasmine": "^1",
