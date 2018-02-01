@@ -769,9 +769,9 @@ module.exports = {
 };
 
 });
-$_mod.installed("makeup-expander$0.2.1", "makeup-focusables", "0.0.1");
-$_mod.main("/makeup-focusables$0.0.1", "");
-$_mod.def("/makeup-focusables$0.0.1/index", function(require, exports, module, __filename, __dirname) { 'use strict';
+$_mod.installed("makeup-expander$0.2.1", "makeup-focusables", "0.0.2");
+$_mod.main("/makeup-focusables$0.0.2", "");
+$_mod.def("/makeup-focusables$0.0.2/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
 var focusableElList = ['a[href]', 'area[href]', 'button:not([disabled])', 'embed', 'iframe', 'input:not([disabled])', 'object', 'select:not([disabled])', 'textarea:not([disabled])', '*[tabindex]', '*[contenteditable]'];
 
@@ -781,6 +781,11 @@ module.exports = function (el) {
     var keyboardOnly = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
     var focusableEls = Array.prototype.slice.call(el.querySelectorAll(focusableElSelector));
+
+    // filter out elements with display: none
+    focusableEls = focusableEls.filter(function (focusableEl) {
+        return window.getComputedStyle(focusableEl).display !== 'none';
+    });
 
     if (keyboardOnly === true) {
         focusableEls = focusableEls.filter(function (focusableEl) {
@@ -802,7 +807,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var nextID = require('/makeup-next-id$0.0.1/index'/*'makeup-next-id'*/);
 var ExitEmitter = require('/makeup-exit-emitter$0.0.3/index'/*'makeup-exit-emitter'*/);
-var focusables = require('/makeup-focusables$0.0.1/index'/*'makeup-focusables'*/);
+var focusables = require('/makeup-focusables$0.0.2/index'/*'makeup-focusables'*/);
 
 var defaultOptions = {
     autoCollapse: false,
