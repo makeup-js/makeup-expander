@@ -3494,20 +3494,24 @@ mailgun-js@^0.7.0:
     q "~1.4.0"
     tsscmp "~1.0.0"
 
-makeup-exit-emitter@~0.0:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/makeup-exit-emitter/-/makeup-exit-emitter-0.0.3.tgz#619bce4c0ca663d662275b7db16d922896d1a99e"
+makeup-exit-emitter@~0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/makeup-exit-emitter/-/makeup-exit-emitter-0.0.4.tgz#26482e73db3ef6ef5f8ac2c3c21e8197488fd458"
   dependencies:
     custom-event-polyfill "~0.3"
     makeup-next-id "~0.0"
 
-makeup-focusables@~0.0:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/makeup-focusables/-/makeup-focusables-0.0.2.tgz#2e4bc6a08f12ecd8a0a5fa6e5c676b81cf5365a4"
+makeup-focusables@~0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/makeup-focusables/-/makeup-focusables-0.0.3.tgz#e30f36a99beb7c5166daafb8f823fefcc7a551fa"
 
 makeup-next-id@~0.0:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/makeup-next-id/-/makeup-next-id-0.0.1.tgz#e4bf4821616c85c96d09631aa166732006468f06"
+
+makeup-next-id@~0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/makeup-next-id/-/makeup-next-id-0.0.2.tgz#70f19812b0b5cb8d5f0f7f78719179ea4b61a0ef"
 
 map-obj@^1.0.0, map-obj@^1.0.1:
   version "1.0.1"

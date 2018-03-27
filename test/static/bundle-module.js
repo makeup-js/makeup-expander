@@ -46,7 +46,32 @@ try {
 }
 
 });
-$_mod.installed("makeup-expander$0.3.1", "makeup-next-id", "0.0.1");
+$_mod.installed("makeup-expander$0.3.1", "makeup-next-id", "0.0.2");
+$_mod.main("/makeup-next-id$0.0.2", "");
+$_mod.def("/makeup-next-id$0.0.2/index", function(require, exports, module, __filename, __dirname) { 'use strict';
+
+var sequenceMap = {};
+var defaultPrefix = 'nid';
+
+module.exports = function (el) {
+    var prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : defaultPrefix;
+
+    // prevent empty string
+    var _prefix = prefix === '' ? defaultPrefix : prefix;
+
+    // initialise prefix in sequence map if necessary
+    sequenceMap[_prefix] = sequenceMap[_prefix] || 0;
+
+    if (!el.id) {
+        el.setAttribute('id', _prefix + '-' + sequenceMap[_prefix]++);
+    }
+};
+
+});
+$_mod.installed("makeup-expander$0.3.1", "makeup-exit-emitter", "0.0.4");
+$_mod.main("/makeup-exit-emitter$0.0.4", "");
+$_mod.installed("makeup-exit-emitter$0.0.4", "custom-event-polyfill", "0.3.0");
+$_mod.installed("makeup-exit-emitter$0.0.4", "makeup-next-id", "0.0.1");
 $_mod.main("/makeup-next-id$0.0.1", "");
 $_mod.def("/makeup-next-id$0.0.1/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
@@ -68,11 +93,7 @@ module.exports = function (el) {
 };
 
 });
-$_mod.installed("makeup-expander$0.3.1", "makeup-exit-emitter", "0.0.3");
-$_mod.main("/makeup-exit-emitter$0.0.3", "");
-$_mod.installed("makeup-exit-emitter$0.0.3", "custom-event-polyfill", "0.3.0");
-$_mod.installed("makeup-exit-emitter$0.0.3", "makeup-next-id", "0.0.1");
-$_mod.def("/makeup-exit-emitter$0.0.3/index", function(require, exports, module, __filename, __dirname) { 'use strict';
+$_mod.def("/makeup-exit-emitter$0.0.4/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -175,9 +196,9 @@ module.exports = {
 };
 
 });
-$_mod.installed("makeup-expander$0.3.1", "makeup-focusables", "0.0.2");
-$_mod.main("/makeup-focusables$0.0.2", "");
-$_mod.def("/makeup-focusables$0.0.2/index", function(require, exports, module, __filename, __dirname) { 'use strict';
+$_mod.installed("makeup-expander$0.3.1", "makeup-focusables", "0.0.3");
+$_mod.main("/makeup-focusables$0.0.3", "");
+$_mod.def("/makeup-focusables$0.0.3/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
 var focusableElList = ['a[href]', 'area[href]', 'button:not([disabled])', 'embed', 'iframe', 'input:not([disabled])', 'object', 'select:not([disabled])', 'textarea:not([disabled])', '*[tabindex]', '*[contenteditable]'];
 
@@ -211,9 +232,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var nextID = require('/makeup-next-id$0.0.1/index'/*'makeup-next-id'*/);
-var ExitEmitter = require('/makeup-exit-emitter$0.0.3/index'/*'makeup-exit-emitter'*/);
-var focusables = require('/makeup-focusables$0.0.2/index'/*'makeup-focusables'*/);
+var nextID = require('/makeup-next-id$0.0.2/index'/*'makeup-next-id'*/);
+var ExitEmitter = require('/makeup-exit-emitter$0.0.4/index'/*'makeup-exit-emitter'*/);
+var focusables = require('/makeup-focusables$0.0.3/index'/*'makeup-focusables'*/);
 
 var defaultOptions = {
     autoCollapse: false,
