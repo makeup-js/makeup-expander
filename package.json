@@ -37,7 +37,7 @@
     "browser-sync": "^2",
     "coveralls": "^3",
     "eslint": "^4",
-    "eslint-config-ebay": "~0.1",
+    "eslint-config-ebay": "^1",
     "jasmine-core": "^2",
     "karma": "^2",
     "karma-chrome-launcher": "^2.2.0",
