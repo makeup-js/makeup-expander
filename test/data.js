@@ -7,7 +7,7 @@ var htmlTemplate1 = '<span class="expander">'
 
 module.exports = [
     {
-        options: { click: true, focus: false, hover: false },
+        options: { expandOnClick: true, expandOnFocus: false, expandOnHover: false },
         html: htmlTemplate1,
         collapsedState: {
             click: { expandedCount: 1, collapsedCount: 0, ariaExpanded: 'true' },
@@ -19,7 +19,7 @@ module.exports = [
         }
     },
     {
-        options: { click: false, focus: true, hover: false },
+        options: { expandOnClick: false, expandOnFocus: true, expandOnHover: false },
         html: htmlTemplate1,
         collapsedState: {
             click: { expandedCount: 0, collapsedCount: 0, ariaExpanded: 'false' },

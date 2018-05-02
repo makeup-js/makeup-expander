@@ -64,11 +64,16 @@
                 top: 0;
                 width: 20px;
             }
+            input[readonly]:focus {
+                border-style: dotted;
+            }
         </style>
     </head>
     <body>
         <main role="main">
             <h1>makeup-expander</h1>
+
+            <h2>Auto Collapse Off</h2>
 
             <div class="expander expander--click-only">
                 <button class="expander__host">Click for Details</button>
@@ -83,8 +88,21 @@
 
             <hr />
 
+            <h2>Auto Collapse On</h2>
+
             <span class="expander expander--click-only flyout">
                 <button class="expander__host flyout__host">Click for Flyout</button>
+                <div class="expander__content flyout__content">
+                    <p>Any kind of HTML control can go inside...</p>
+                    <p>A link: <a id="foo" href="http://www.ebay.com">www.ebay.com</a></p>
+                    <p>A button: <button>Click Me</button></p>
+                    <p>An input: <input type="text" aria-label="Dummy textbox"></p>
+                    <p>A checkbox: <input type="checkbox" aria-label="Dummy checkbox"></p>
+                </div>
+            </span>
+
+            <span class="expander expander--focus-only flyout">
+                <input class="expander__host flyout__host" placeholder="Focus for flyout"/>
                 <div class="expander__content flyout__content">
                     <p>Any kind of HTML control can go inside...</p>
                     <p>A link: <a id="foo" href="http://www.ebay.com">www.ebay.com</a></p>
@@ -119,11 +137,9 @@
                 </div>
             </span>
 
-            <hr />
-
             <span class="expander expander--click-and-spacebar flyout">
                 <span style="position:relative">
-                    <input class="expander__host flyout__host" placeholder="Click readonly input for flyout" readonly size="25" type="text"/>
+                    <input class="expander__host flyout__host" placeholder="Click input container for flyout" readonly size="25" type="text"/>
                     <span class="expander__icon"></span>
                 </span>
                 <div class="expander__content flyout__content">

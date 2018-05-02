@@ -2,37 +2,40 @@ function nodeListToArray(nodeList) {
     return Array.prototype.slice.call(nodeList);
 }
 
+function querySelectorAllToArray(selector) {
+    return nodeListToArray(document.querySelectorAll(selector));
+}
+
 var Expander = require('../index.js');
-var clickExpanderEls = nodeListToArray(document.querySelectorAll('.expander--click-only'));
-var focusExpanderEls = nodeListToArray(document.querySelectorAll('.expander--focus-only'));
-var hoverExpanderEls = nodeListToArray(document.querySelectorAll('.expander--hover-only'));
-var hoverAndFocusExpanderEls = nodeListToArray(document.querySelectorAll('.expander--focus-and-hover'));
-var stealthExpanderEls = nodeListToArray(document.querySelectorAll('.expander--stealth-only'));
-var clickAndSpacebarExpanderEls = nodeListToArray(document.querySelectorAll('.expander--click-and-spacebar'));
+var clickExpanderEls = querySelectorAllToArray('.expander--click-only');
+var focusExpanderEls = querySelectorAllToArray('.expander--focus-only');
+var hoverExpanderEls = querySelectorAllToArray('.expander--hover-only');
+var hoverAndFocusExpanderEls = querySelectorAllToArray('.expander--focus-and-hover');
+var stealthExpanderEls = querySelectorAllToArray('.expander--stealth-only');
+var clickAndSpacebarExpanderEls = querySelectorAllToArray('.expander--click-and-spacebar');
 var expanderWidgets = [];
 
-clickExpanderEls.forEach(function(el, i) {
-    expanderWidgets.push(new Expander(el, { click: true }));
-});
+expanderWidgets.push(new Expander(clickExpanderEls[0], { expandOnClick: true }));
+expanderWidgets.push(new Expander(clickExpanderEls[1], { autoCollapse: true, expandOnClick: true }));
 
 focusExpanderEls.forEach(function(el, i) {
-    expanderWidgets.push(new Expander(el, { focus: true }));
+    expanderWidgets.push(new Expander(el, { autoCollapse: true, expandOnFocus: true }));
 });
 
 hoverExpanderEls.forEach(function(el, i) {
-    expanderWidgets.push(new Expander(el, { hover: true }));
+    expanderWidgets.push(new Expander(el, { autoCollapse: true, expandOnHover: true }));
 });
 
 hoverAndFocusExpanderEls.forEach(function(el, i) {
-    expanderWidgets.push(new Expander(el, { focus: true, hover: true }));
+    expanderWidgets.push(new Expander(el, { autoCollapse: true, expandOnFocus: true, expandOnHover: true }));
 });
 
 stealthExpanderEls.forEach(function(el, i) {
-    expanderWidgets.push(new Expander(el, { autoCollapse: true, click: true, focusManagement: 'focusable' }));
+    expanderWidgets.push(new Expander(el, { collapseOnClickOut: true, collapseOnFocusOut: true, expandOnClick: true, focusManagement: 'focusable' }));
 });
 
 clickAndSpacebarExpanderEls.forEach(function(el, i) {
-    expanderWidgets.push(new Expander(el, { autoCollapse: true, click: true, spacebar: true }));
+    expanderWidgets.push(new Expander(el, { autoCollapse: true, expandOnClick: true, simulateSpacebarClick: true }));
 });
 
 expanderWidgets.forEach(function(item, i) {

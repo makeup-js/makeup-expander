@@ -7,7 +7,7 @@
     <a href="https://david-dm.org/makeup-js/makeup-expander#info=devDependencies"><img src="https://david-dm.org/makeup-js/makeup-expander/dev-status.svg" alt="devDependency status" /></a>
 </p>
 
-Creates the basic interactivity for an element that expands and collapses another element, e.g. a fly-out or fly-in.
+Creates the basic interactivity for an element that expands and collapses another element.
 
 ## Experimental
 
@@ -47,7 +47,7 @@ const widgetEl = document.querySelector('.expander');
 
 // options
 const options = {
-    click: true
+    expandOnClick: true
 };
 
 // get widget instance
@@ -69,14 +69,16 @@ Clicking the button will now toggle it's aria-expanded state. CSS can be used to
 ## Params
 
 * `el`: the root widget el
-* `options.autoCollapse`: whether click-activated expander should collapse when keyboard or mouse leaves the content or widget (default: false)
-* `options.click`: whether the host should be click activated (default: false)
+* `options.autoCollapse`: applies a collapse behavior (`collapseOnClick`, `collapseOnFocusOut`, `collapseOnMouseOut`) based on expand behaviour (default: false)
+* `options.collapseOnClickOut`: whether the content should collapse when clicking outside of content (default: false)
+* `options.collapseOnFocusOut`: whether the content should collapse when focus leaves the content (default: false)
+* `options.collapseOnMouseOut`: whether the content should collapse when mouse leaves the content (default: false)
 * `options.contentSelector`: the query selector for the expandee element in relation to the widget (default: '.expander__content')
-* `options.focus`: whether the host should be focus activated (default: false)
+* `options.expandOnClick`: whether the host should be click activated (default: false)
+* `options.expandOnFocus`: whether the host should be focus activated (default: false)
+* `options.expandOnHover`: whether the host should be hover activated (default: false)
 * `options.focusManagement`: where focus should go (null, 'content', 'focusable', 'interactive', or ID reference) when click expander is activated with keyboard (default: null)
 * `options.hostSelector`: the query selector for the host element in relation to the widget (default: '.expander__host')
-* `options.hover`: whether the host should be hover activated (default: false)
-* `options.spacebar` whether spacebar should force a click event (do not use if host already triggers click events!) (default: false)
 
 ## Events
 
