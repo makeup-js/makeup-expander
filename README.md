@@ -80,6 +80,24 @@ Clicking the button will now toggle it's aria-expanded state. CSS can be used to
 * `options.focusManagement`: where focus should go (null, 'content', 'focusable', 'interactive', or ID reference) when click expander is activated with keyboard (default: null)
 * `options.hostSelector`: the query selector for the host element in relation to the widget (default: '.expander__host')
 
+## Properties
+
+Set the following properties to true or false to enable or disable the behaviour.
+
+* `collapseOnClickOut`
+* `collapseOnFocusOut`
+* `collapseOnMouseOut`
+* `expandOnClick`
+* `expandOnFocus`
+* `expandOnHover`
+
+## Methods
+
+* `collapse()`: set state to collapsed
+* `expand()`: set state to expanded
+* `isExpanded()`: returns expanded state
+* `toggle()`: toggle expanded/collapsed state
+
 ## Events
 
 * `expander-collapse`
