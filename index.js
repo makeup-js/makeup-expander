@@ -41,11 +41,30 @@ function _onKeyDown(e) {
     }
 }
 
-function _onDocumentClick(e) {
-    if (this.el.contains(e.target) === false) {
-        this.el.dispatchEvent(new CustomEvent('clickOut', {
+function processDocumentClick(event, el) {
+    if (el.contains(event.target) === false) {
+        el.dispatchEvent(new CustomEvent('clickOut', {
             bubbles: false
         }));
+    }
+}
+
+function _onDocumentClick(e) {
+    processDocumentClick(e, this.el);
+}
+
+function _onDocumentTouchStart(e) {
+    this.documentClick = true;
+}
+
+function _onDocumentTouchMove(e) {
+    this.documentClick = false;
+}
+
+function _onDocumentTouchEnd(e) {
+    if (this.documentClick) {
+        this.documentClick = false;
+        processDocumentClick(e, this.el);
     }
 }
 
@@ -61,6 +80,7 @@ module.exports = function () {
         this.hostContainerEl = null;
         this.hostContainerExpandedClass = this.options.hostContainerClass + '--expanded';
         this.hostIsNested = false;
+        this.documentClick = false;
 
         // ensure the widget and expandee have an id
         nextID(this.el, 'expander');
@@ -70,6 +90,9 @@ module.exports = function () {
 
         this._hostKeyDownListener = _onKeyDown.bind(this);
         this._documentClickListener = _onDocumentClick.bind(this);
+        this._documentTouchStartListener = _onDocumentTouchStart.bind(this);
+        this._documentTouchMoveListener = _onDocumentTouchMove.bind(this);
+        this._documentTouchEndListener = _onDocumentTouchEnd.bind(this);
 
         this._hostClickListener = this.toggle.bind(this);
         this._hostFocusListener = this.expand.bind(this);
@@ -209,10 +232,16 @@ module.exports = function () {
         set: function set(bool) {
             if (bool === true) {
                 document.addEventListener('click', this._documentClickListener);
+                document.addEventListener('touchstart', this._documentTouchStartListener);
+                document.addEventListener('touchmove', this._documentTouchMoveListener);
+                document.addEventListener('touchend', this._documentTouchEndListener);
                 this.el.addEventListener('clickOut', this._clickOutListener);
             } else {
                 this.el.removeEventListener('clickOut', this._clickOutListener);
                 document.removeEventListener('click', this._documentClickListener);
+                document.removeEventListener('touchstart', this._documentTouchStartListener);
+                document.removeEventListener('touchmove', this._documentTouchMoveListener);
+                document.removeEventListener('touchend', this._documentTouchEndListener);
             }
         }
     }, {
