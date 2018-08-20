@@ -15,7 +15,9 @@ module.exports = [
         },
         expandedState: {
             click: { expandedCount: 0, collapsedCount: 1, ariaExpanded: 'false' },
-            focus: { expandedCount: 0, collapsedCount: 0, ariaExpanded: 'true' }
+            focus: { expandedCount: 0, collapsedCount: 0, ariaExpanded: 'true' },
+            documentClick: { expandedCount: 0, collapsedCount: 0, ariaExpanded: 'true' },
+            documentTouch: { expandedCount: 0, collapsedCount: 0, ariaExpanded: 'true' }
         }
     },
     {
@@ -27,7 +29,23 @@ module.exports = [
         },
         expandedState: {
             click: { expandedCount: 0, collapsedCount: 0, ariaExpanded: 'true' },
-            focus: { expandedCount: 0, collapsedCount: 0, ariaExpanded: 'true' }
+            focus: { expandedCount: 0, collapsedCount: 0, ariaExpanded: 'true' },
+            documentClick: { expandedCount: 0, collapsedCount: 0, ariaExpanded: 'true' },
+            documentTouch: { expandedCount: 0, collapsedCount: 0, ariaExpanded: 'true' }
+        }
+    },
+    {
+        options: { expandOnClick: false, expandOnFocus: true, expandOnHover: false, collapseOnClickOut: true },
+        html: htmlTemplate1,
+        collapsedState: {
+            click: { expandedCount: 0, collapsedCount: 0, ariaExpanded: 'false' },
+            focus: { expandedCount: 1, collapsedCount: 0, ariaExpanded: 'true' }
+        },
+        expandedState: {
+            click: { expandedCount: 0, collapsedCount: 0, ariaExpanded: 'true' },
+            focus: { expandedCount: 0, collapsedCount: 0, ariaExpanded: 'true' },
+            documentClick: { expandedCount: 0, collapsedCount: 1, ariaExpanded: 'false' },
+            documentTouch: { expandedCount: 0, collapsedCount: 1, ariaExpanded: 'false' }
         }
     }
 ];

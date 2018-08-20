@@ -1,4 +1,4 @@
-$_mod.installed("makeup-expander$0.4.0", "custom-event-polyfill", "0.3.0");
+$_mod.installed("makeup-expander$0.5.0", "custom-event-polyfill", "0.3.0");
 $_mod.main("/custom-event-polyfill$0.3.0", "custom-event-polyfill");
 $_mod.def("/custom-event-polyfill$0.3.0/custom-event-polyfill", function(require, exports, module, __filename, __dirname) { // Polyfill for creating CustomEvents on IE9/10/11
 
@@ -46,7 +46,7 @@ try {
 }
 
 });
-$_mod.installed("makeup-expander$0.4.0", "makeup-next-id", "0.0.2");
+$_mod.installed("makeup-expander$0.5.0", "makeup-next-id", "0.0.2");
 $_mod.main("/makeup-next-id$0.0.2", "");
 $_mod.def("/makeup-next-id$0.0.2/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
@@ -68,7 +68,7 @@ module.exports = function (el) {
 };
 
 });
-$_mod.installed("makeup-expander$0.4.0", "makeup-exit-emitter", "0.0.4");
+$_mod.installed("makeup-expander$0.5.0", "makeup-exit-emitter", "0.0.4");
 $_mod.main("/makeup-exit-emitter$0.0.4", "");
 $_mod.installed("makeup-exit-emitter$0.0.4", "custom-event-polyfill", "0.3.0");
 $_mod.installed("makeup-exit-emitter$0.0.4", "makeup-next-id", "0.0.1");
@@ -196,7 +196,7 @@ module.exports = {
 };
 
 });
-$_mod.installed("makeup-expander$0.4.0", "makeup-focusables", "0.0.3");
+$_mod.installed("makeup-expander$0.5.0", "makeup-focusables", "0.0.3");
 $_mod.main("/makeup-focusables$0.0.3", "");
 $_mod.def("/makeup-focusables$0.0.3/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
@@ -224,7 +224,7 @@ module.exports = function (el) {
 };
 
 });
-$_mod.def("/makeup-expander$0.4.0/index", function(require, exports, module, __filename, __dirname) { 'use strict';
+$_mod.def("/makeup-expander$0.5.0/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -267,11 +267,30 @@ function _onKeyDown(e) {
     }
 }
 
-function _onDocumentClick(e) {
-    if (this.el.contains(e.target) === false) {
-        this.el.dispatchEvent(new CustomEvent('clickOut', {
+function processDocumentClick(event, el) {
+    if (el.contains(event.target) === false) {
+        el.dispatchEvent(new CustomEvent('clickOut', {
             bubbles: false
         }));
+    }
+}
+
+function _onDocumentClick(e) {
+    processDocumentClick(e, this.el);
+}
+
+function _onDocumentTouchStart() {
+    this.documentClick = true;
+}
+
+function _onDocumentTouchMove() {
+    this.documentClick = false;
+}
+
+function _onDocumentTouchEnd(e) {
+    if (this.documentClick) {
+        this.documentClick = false;
+        processDocumentClick(e, this.el);
     }
 }
 
@@ -287,6 +306,7 @@ module.exports = function () {
         this.hostContainerEl = null;
         this.hostContainerExpandedClass = this.options.hostContainerClass + '--expanded';
         this.hostIsNested = false;
+        this.documentClick = false;
 
         // ensure the widget and expandee have an id
         nextID(this.el, 'expander');
@@ -296,6 +316,9 @@ module.exports = function () {
 
         this._hostKeyDownListener = _onKeyDown.bind(this);
         this._documentClickListener = _onDocumentClick.bind(this);
+        this._documentTouchStartListener = _onDocumentTouchStart.bind(this);
+        this._documentTouchMoveListener = _onDocumentTouchMove.bind(this);
+        this._documentTouchEndListener = _onDocumentTouchEnd.bind(this);
 
         this._hostClickListener = this.toggle.bind(this);
         this._hostFocusListener = this.expand.bind(this);
@@ -435,10 +458,16 @@ module.exports = function () {
         set: function set(bool) {
             if (bool === true) {
                 document.addEventListener('click', this._documentClickListener);
+                document.addEventListener('touchstart', this._documentTouchStartListener);
+                document.addEventListener('touchmove', this._documentTouchMoveListener);
+                document.addEventListener('touchend', this._documentTouchEndListener);
                 this.el.addEventListener('clickOut', this._clickOutListener);
             } else {
                 this.el.removeEventListener('clickOut', this._clickOutListener);
                 document.removeEventListener('click', this._documentClickListener);
+                document.removeEventListener('touchstart', this._documentTouchStartListener);
+                document.removeEventListener('touchmove', this._documentTouchMoveListener);
+                document.removeEventListener('touchend', this._documentTouchEndListener);
             }
         }
     }, {
