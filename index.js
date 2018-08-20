@@ -53,11 +53,11 @@ function _onDocumentClick(e) {
     processDocumentClick(e, this.el);
 }
 
-function _onDocumentTouchStart(e) {
+function _onDocumentTouchStart() {
     this.documentClick = true;
 }
 
-function _onDocumentTouchMove(e) {
+function _onDocumentTouchMove() {
     this.documentClick = false;
 }
 
