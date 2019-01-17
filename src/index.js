@@ -62,6 +62,17 @@ function _onDocumentTouchEnd(e) {
     }
 }
 
+function _getClosestParent(elem, selector) {
+    let el = elem;
+
+    // Get the closest matching element
+    for (; el && el !== document; el = el.parentNode) {
+        if (el.matches(selector)) return el;
+    }
+
+    return null;
+}
+
 module.exports = class {
     constructor(el, selectedOptions) {
         this.options = Object.assign({}, defaultOptions, selectedOptions);
@@ -104,8 +115,12 @@ module.exports = class {
 
         // if the host el is nested one level deep we need a reference to it's container
         if (this.hostIsNested === true) {
-            this.hostContainerEl = this.hostEl.parentNode;
-            this.hostContainerEl.classList.add(this.options.hostContainerClass);
+            this.hostContainerEl = _getClosestParent(this.hostEl, `.${this.options.hostContainerClass}`) ||
+                this.hostEl.parentNode;
+
+            if (!this.hostContainerEl.classList.contains(this.options.hostContainerClass)) {
+                this.hostContainerEl.classList.add(this.options.hostContainerClass);
+            }
         }
 
         this.expandOnClick = this.options.expandOnClick;
