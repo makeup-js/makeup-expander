@@ -20,7 +20,7 @@ var defaultOptions = {
     expandOnFocus: false,
     expandOnHover: false,
     focusManagement: null,
-    hostContainerClass: 'expander__host-container',
+    expandedClass: null,
     hostSelector: '.expander__host',
     simulateSpacebarClick: false
 };
@@ -78,7 +78,6 @@ module.exports = function () {
         this.hostEl = el.querySelector(this.options.hostSelector); // the keyboard focusable host el
         this.expandeeEl = el.querySelector(this.options.contentSelector);
         this.hostContainerEl = null;
-        this.hostContainerExpandedClass = this.options.hostContainerClass + '--expanded';
         this.hostIsNested = false;
         this.documentClick = false;
 
@@ -112,11 +111,7 @@ module.exports = function () {
 
         // if the host el is nested we need a reference to it's container
         if (this.hostIsNested === true) {
-            this.hostContainerEl = this.el.querySelector('.' + this.options.hostContainerClass) || this.el;
-
-            if (!this.hostContainerEl.classList.contains(this.options.hostContainerClass)) {
-                this.hostContainerEl.classList.add(this.options.hostContainerClass);
-            }
+            this.hostContainerEl = this.hostEl.parentNode;
         }
 
         this.expandOnClick = this.options.expandOnClick;
@@ -140,8 +135,8 @@ module.exports = function () {
         value: function collapse() {
             if (this.isExpanded() === true) {
                 this.hostEl.setAttribute('aria-expanded', 'false');
-                if (this.hostContainerEl) {
-                    this.hostContainerEl.classList.remove(this.hostContainerExpandedClass);
+                if (this.options.expandedClass) {
+                    this.el.classList.remove(this.options.expandedClass);
                 }
                 this.el.dispatchEvent(new CustomEvent('expander-collapse', { bubbles: true, detail: this.expandeeEl }));
             }
@@ -151,8 +146,8 @@ module.exports = function () {
         value: function expand(isKeyboard) {
             if (this.isExpanded() === false) {
                 this.hostEl.setAttribute('aria-expanded', 'true');
-                if (this.hostContainerEl) {
-                    this.hostContainerEl.classList.add(this.hostContainerExpandedClass);
+                if (this.options.expandedClass) {
+                    this.el.classList.add(this.options.expandedClass);
                 }
                 if (isKeyboard === true) {
                     var focusManagement = this.options.focusManagement;
