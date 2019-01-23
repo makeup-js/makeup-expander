@@ -23,7 +23,9 @@ npm install makeup-expander
 yarn add makeup-expander
 ```
 
-## Example
+## Basic Example
+
+In the most basic use case, the interactive host element is an adjacent sibling of the content that it expands. We leverage the aria-expanded state to hide and show the overlay with CSS.
 
 ```html
 <div class="expander">
@@ -66,6 +68,54 @@ Clicking the button will now toggle it's aria-expanded state. CSS can be used to
 }
 ```
 
+## Nested Example
+
+In this example, the interactive host element and the content that it expands are **not** siblings. We cannot leverage aria-expanded to hide and show the overlay with CSS. Instead we must leverage a class on the root element of the widget. This class is defined in the widget options.
+
+```html
+<div class="widget">
+    <span class="widget__button">
+        <button class="expander__host">Click for Flyout</button>
+    </span>
+    <div class="expander__content">
+        <p>Any kind of HTML control can go inside...</p>
+        <p>A link: <a id="foo" href="http://www.ebay.com">www.ebay.com</a></p>
+        <p>A button: <button>Click Me</button></p>
+        <p>An input: <input type="text" aria-label="Dummy textbox"></p>
+        <p>A checkbox: <input type="checkbox" aria-label="Dummy checkbox"></p>
+    </div>
+</div>
+```
+
+```js
+// import the module
+const Expander = require('makeup-expander');
+
+// get an element reference
+const widgetEl = document.querySelector('.widget');
+
+// options
+const options = {
+    expandOnClick: true,
+    expandedClass: 'widget--expanded'
+};
+
+// get widget instance
+const widget = new Expander(widgetEl, options);
+```
+
+Clicking the button will now toggle it's aria-expanded state *and* toggle the expanded class on the root element. CSS can be used to display the content accordingly, for example:
+
+```css
+.expander__content {
+    display: none;
+}
+
+.widget--expanded .expander__content {
+    display: block;
+}
+```
+
 ## Params
 
 * `el`: the root widget el
@@ -73,13 +123,14 @@ Clicking the button will now toggle it's aria-expanded state. CSS can be used to
 * `options.collapseOnClickOut`: whether the content should collapse when clicking outside of content (default: false)
 * `options.collapseOnFocusOut`: whether the content should collapse when focus leaves the content (default: false)
 * `options.collapseOnMouseOut`: whether the content should collapse when mouse leaves the content (default: false)
-* `options.contentSelector`: the query selector for the expandee element in relation to the widget (default: '.expander__content')
+* `options.contentSelector`: the query selector for the content element in relation to the widget (default: '.expander__content')
 * `options.expandOnClick`: whether the host should be click activated (default: false)
 * `options.expandOnFocus`: whether the host should be focus activated (default: false)
 * `options.expandOnHover`: whether the host should be hover activated (default: false)
 * `options.focusManagement`: where focus should go (null, 'content', 'focusable', 'interactive', or ID reference) when click expander is activated with keyboard (default: null)
 * `options.hostSelector`: the query selector for the host element in relation to the widget (default: '.expander__host')
 * `options.expandedClass`: the class which will be used on the root element to signify expanded state. **Example:** `foo--expanded`; this mirrors the `aria-expanded="true"` setting on the host element
+* `options.simulateSpacebarClick`: whether to force a click event on spacebar, in the case that the host does not natively trigger one (default: false)
 
 ## Properties
 
