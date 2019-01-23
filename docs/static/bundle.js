@@ -897,8 +897,6 @@ module.exports = function () {
         this.el = el;
         this.hostEl = el.querySelector(this.options.hostSelector); // the keyboard focusable host el
         this.expandeeEl = el.querySelector(this.options.contentSelector);
-        this.hostContainerEl = null;
-        this.hostIsNested = false;
         this.documentClick = false;
 
         // ensure the widget and expandee have an id
@@ -926,13 +924,6 @@ module.exports = function () {
         }
 
         this.hostEl.setAttribute('aria-controls', this.expandeeEl.id);
-
-        this.hostIsNested = this.hostEl.parentNode !== this.el;
-
-        // if the host el is nested we need a reference to it's container
-        if (this.hostIsNested === true) {
-            this.hostContainerEl = this.hostEl.parentNode;
-        }
 
         this.expandOnClick = this.options.expandOnClick;
         this.expandOnFocus = this.options.expandOnFocus;
@@ -1002,18 +993,16 @@ module.exports = function () {
     }, {
         key: 'expandOnClick',
         set: function set(bool) {
-            var clickTargetEl = this.hostIsNested === true ? this.hostContainerEl : this.hostEl;
-
             if (bool === true) {
                 this.hostEl.addEventListener('keydown', this._hostKeyDownListener);
-                clickTargetEl.addEventListener('click', this._hostClickListener);
+                this.hostEl.addEventListener('click', this._hostClickListener);
 
                 if (this.options.autoCollapse === true) {
                     this.collapseOnClickOut = true;
                     this.collapseOnFocusOut = true;
                 }
             } else {
-                clickTargetEl.removeEventListener('click', this._hostClickListener);
+                this.hostEl.removeEventListener('click', this._hostClickListener);
                 this.hostEl.removeEventListener('keydown', this._hostKeyDownListener);
             }
         }
@@ -1033,16 +1022,14 @@ module.exports = function () {
     }, {
         key: 'expandOnHover',
         set: function set(bool) {
-            var hoverTargetEl = this.hostIsNested === true ? this.hostContainerEl : this.hostEl;
-
             if (bool === true) {
-                hoverTargetEl.addEventListener('mouseenter', this._hostHoverListener);
+                this.hostEl.addEventListener('mouseenter', this._hostHoverListener);
 
                 if (this.options.autoCollapse === true) {
                     this.collapseOnMouseOut = true;
                 }
             } else {
-                hoverTargetEl.removeEventListener('mouseenter', this._hostHoverListener);
+                this.hostEl.removeEventListener('mouseenter', this._hostHoverListener);
             }
         }
     }, {
@@ -1123,7 +1110,12 @@ stealthExpanderEls.forEach(function(el, i) {
 });
 
 clickAndSpacebarExpanderEls.forEach(function(el, i) {
-    expanderWidgets.push(new Expander(el, { autoCollapse: true, expandOnClick: true, simulateSpacebarClick: true }));
+    expanderWidgets.push(new Expander(el, {
+        autoCollapse: true,
+        expandOnClick: true,
+        simulateSpacebarClick: true,
+        expandedClass: 'expander__host-container--expanded'
+    }));
 });
 
 expanderWidgets.forEach(function(item, i) {

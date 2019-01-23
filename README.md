@@ -78,8 +78,8 @@ Clicking the button will now toggle it's aria-expanded state. CSS can be used to
 * `options.expandOnFocus`: whether the host should be focus activated (default: false)
 * `options.expandOnHover`: whether the host should be hover activated (default: false)
 * `options.focusManagement`: where focus should go (null, 'content', 'focusable', 'interactive', or ID reference) when click expander is activated with keyboard (default: null)
-* `options.hostSelector`: the query selector for the host element in relation to the widget (default: '.expander__host');
-* `options.hostContainerClass`: the class to which you want to add the `--expanded` modifier (default: '.expander__host-container'); useful for nested hosts; **_Example_**: setting this option to `tooltip` will make the expander add `.tooltip--expanded` to the first child element which has the `tooltip` class applied when the expander is expanded.
+* `options.hostSelector`: the query selector for the host element in relation to the widget (default: '.expander__host')
+* `options.expandedClass`: the class which will be used on the root element to signify expanded state. **Example:** `foo--expanded`; this mirrors the `aria-expanded="true"` setting on the host element
 
 ## Properties
 

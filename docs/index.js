@@ -35,7 +35,12 @@ stealthExpanderEls.forEach(function(el, i) {
 });
 
 clickAndSpacebarExpanderEls.forEach(function(el, i) {
-    expanderWidgets.push(new Expander(el, { autoCollapse: true, expandOnClick: true, simulateSpacebarClick: true }));
+    expanderWidgets.push(new Expander(el, {
+        autoCollapse: true,
+        expandOnClick: true,
+        simulateSpacebarClick: true,
+        expandedClass: 'expander__host-container--expanded'
+    }));
 });
 
 expanderWidgets.forEach(function(item, i) {

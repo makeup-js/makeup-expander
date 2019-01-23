@@ -246,7 +246,7 @@ var defaultOptions = {
     expandOnFocus: false,
     expandOnHover: false,
     focusManagement: null,
-    hostContainerClass: 'expander__host-container',
+    expandedClass: null,
     hostSelector: '.expander__host',
     simulateSpacebarClick: false
 };
@@ -303,9 +303,6 @@ module.exports = function () {
         this.el = el;
         this.hostEl = el.querySelector(this.options.hostSelector); // the keyboard focusable host el
         this.expandeeEl = el.querySelector(this.options.contentSelector);
-        this.hostContainerEl = null;
-        this.hostContainerExpandedClass = this.options.hostContainerClass + '--expanded';
-        this.hostIsNested = false;
         this.documentClick = false;
 
         // ensure the widget and expandee have an id
@@ -334,17 +331,6 @@ module.exports = function () {
 
         this.hostEl.setAttribute('aria-controls', this.expandeeEl.id);
 
-        this.hostIsNested = this.hostEl.parentNode !== this.el;
-
-        // if the host el is nested we need a reference to it's container
-        if (this.hostIsNested === true) {
-            this.hostContainerEl = this.el.querySelector('.' + this.options.hostContainerClass) || this.el;
-
-            if (!this.hostContainerEl.classList.contains(this.options.hostContainerClass)) {
-                this.hostContainerEl.classList.add(this.options.hostContainerClass);
-            }
-        }
-
         this.expandOnClick = this.options.expandOnClick;
         this.expandOnFocus = this.options.expandOnFocus;
         this.expandOnHover = this.options.expandOnHover;
@@ -366,8 +352,8 @@ module.exports = function () {
         value: function collapse() {
             if (this.isExpanded() === true) {
                 this.hostEl.setAttribute('aria-expanded', 'false');
-                if (this.hostContainerEl) {
-                    this.hostContainerEl.classList.remove(this.hostContainerExpandedClass);
+                if (this.options.expandedClass) {
+                    this.el.classList.remove(this.options.expandedClass);
                 }
                 this.el.dispatchEvent(new CustomEvent('expander-collapse', { bubbles: true, detail: this.expandeeEl }));
             }
@@ -377,8 +363,8 @@ module.exports = function () {
         value: function expand(isKeyboard) {
             if (this.isExpanded() === false) {
                 this.hostEl.setAttribute('aria-expanded', 'true');
-                if (this.hostContainerEl) {
-                    this.hostContainerEl.classList.add(this.hostContainerExpandedClass);
+                if (this.options.expandedClass) {
+                    this.el.classList.add(this.options.expandedClass);
                 }
                 if (isKeyboard === true) {
                     var focusManagement = this.options.focusManagement;
@@ -413,18 +399,16 @@ module.exports = function () {
     }, {
         key: 'expandOnClick',
         set: function set(bool) {
-            var clickTargetEl = this.hostIsNested === true ? this.hostContainerEl : this.hostEl;
-
             if (bool === true) {
                 this.hostEl.addEventListener('keydown', this._hostKeyDownListener);
-                clickTargetEl.addEventListener('click', this._hostClickListener);
+                this.hostEl.addEventListener('click', this._hostClickListener);
 
                 if (this.options.autoCollapse === true) {
                     this.collapseOnClickOut = true;
                     this.collapseOnFocusOut = true;
                 }
             } else {
-                clickTargetEl.removeEventListener('click', this._hostClickListener);
+                this.hostEl.removeEventListener('click', this._hostClickListener);
                 this.hostEl.removeEventListener('keydown', this._hostKeyDownListener);
             }
         }
@@ -444,16 +428,14 @@ module.exports = function () {
     }, {
         key: 'expandOnHover',
         set: function set(bool) {
-            var hoverTargetEl = this.hostIsNested === true ? this.hostContainerEl : this.hostEl;
-
             if (bool === true) {
-                hoverTargetEl.addEventListener('mouseenter', this._hostHoverListener);
+                this.hostEl.addEventListener('mouseenter', this._hostHoverListener);
 
                 if (this.options.autoCollapse === true) {
                     this.collapseOnMouseOut = true;
                 }
             } else {
-                hoverTargetEl.removeEventListener('mouseenter', this._hostHoverListener);
+                this.hostEl.removeEventListener('mouseenter', this._hostHoverListener);
             }
         }
     }, {

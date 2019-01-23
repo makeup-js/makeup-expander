@@ -69,8 +69,6 @@ module.exports = class {
         this.el = el;
         this.hostEl = el.querySelector(this.options.hostSelector); // the keyboard focusable host el
         this.expandeeEl = el.querySelector(this.options.contentSelector);
-        this.hostContainerEl = null;
-        this.hostIsNested = false;
         this.documentClick = false;
 
         // ensure the widget and expandee have an id
@@ -99,13 +97,6 @@ module.exports = class {
 
         this.hostEl.setAttribute('aria-controls', this.expandeeEl.id);
 
-        this.hostIsNested = (this.hostEl.parentNode !== this.el);
-
-        // if the host el is nested we need a reference to it's container
-        if (this.hostIsNested === true) {
-            this.hostContainerEl = this.hostEl.parentNode;
-        }
-
         this.expandOnClick = this.options.expandOnClick;
         this.expandOnFocus = this.options.expandOnFocus;
         this.expandOnHover = this.options.expandOnHover;
@@ -118,18 +109,16 @@ module.exports = class {
     }
 
     set expandOnClick(bool) {
-        const clickTargetEl = (this.hostIsNested === true) ? this.hostContainerEl : this.hostEl;
-
         if (bool === true) {
             this.hostEl.addEventListener('keydown', this._hostKeyDownListener);
-            clickTargetEl.addEventListener('click', this._hostClickListener);
+            this.hostEl.addEventListener('click', this._hostClickListener);
 
             if (this.options.autoCollapse === true) {
                 this.collapseOnClickOut = true;
                 this.collapseOnFocusOut = true;
             }
         } else {
-            clickTargetEl.removeEventListener('click', this._hostClickListener);
+            this.hostEl.removeEventListener('click', this._hostClickListener);
             this.hostEl.removeEventListener('keydown', this._hostKeyDownListener);
         }
     }
@@ -147,16 +136,14 @@ module.exports = class {
     }
 
     set expandOnHover(bool) {
-        const hoverTargetEl = (this.hostIsNested === true) ? this.hostContainerEl : this.hostEl;
-
         if (bool === true) {
-            hoverTargetEl.addEventListener('mouseenter', this._hostHoverListener);
+            this.hostEl.addEventListener('mouseenter', this._hostHoverListener);
 
             if (this.options.autoCollapse === true) {
                 this.collapseOnMouseOut = true;
             }
         } else {
-            hoverTargetEl.removeEventListener('mouseenter', this._hostHoverListener);
+            this.hostEl.removeEventListener('mouseenter', this._hostHoverListener);
         }
     }
 
