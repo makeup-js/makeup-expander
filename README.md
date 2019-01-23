@@ -79,6 +79,7 @@ Clicking the button will now toggle it's aria-expanded state. CSS can be used to
 * `options.expandOnHover`: whether the host should be hover activated (default: false)
 * `options.focusManagement`: where focus should go (null, 'content', 'focusable', 'interactive', or ID reference) when click expander is activated with keyboard (default: null)
 * `options.hostSelector`: the query selector for the host element in relation to the widget (default: '.expander__host')
+* `options.expandedClass`: the class which will be used on the root element to signify expanded state. **Example:** `foo--expanded`; this mirrors the `aria-expanded="true"` setting on the host element
 
 ## Properties
 
