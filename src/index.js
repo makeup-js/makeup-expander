@@ -128,6 +128,7 @@ module.exports = class {
             this.hostEl.addEventListener('focus', this._hostFocusListener);
 
             if (this.options.autoCollapse === true) {
+                this.collapseOnClickOut = true;
                 this.collapseOnFocusOut = true;
             }
         } else {

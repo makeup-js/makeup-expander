@@ -119,7 +119,7 @@ Clicking the button will now toggle it's aria-expanded state *and* toggle the ex
 ## Params
 
 * `el`: the root widget el
-* `options.autoCollapse`: applies a collapse behavior (`collapseOnClick`, `collapseOnFocusOut`, `collapseOnMouseOut`) based on expand behaviour (default: false)
+* `options.autoCollapse`: applies one or more collapse behaviors (`collapseOnClickOut`, `collapseOnFocusOut`, `collapseOnMouseOut`) based on expand behaviour (default: false)
 * `options.collapseOnClickOut`: whether the content should collapse when clicking outside of content (default: false)
 * `options.collapseOnFocusOut`: whether the content should collapse when focus leaves the content (default: false)
 * `options.collapseOnMouseOut`: whether the content should collapse when mouse leaves the content (default: false)
