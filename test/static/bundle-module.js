@@ -1,4 +1,4 @@
-$_mod.installed("makeup-expander$0.6.0", "custom-event-polyfill", "0.3.0");
+$_mod.installed("makeup-expander$0.6.1", "custom-event-polyfill", "0.3.0");
 $_mod.main("/custom-event-polyfill$0.3.0", "custom-event-polyfill");
 $_mod.def("/custom-event-polyfill$0.3.0/custom-event-polyfill", function(require, exports, module, __filename, __dirname) { // Polyfill for creating CustomEvents on IE9/10/11
 
@@ -46,7 +46,7 @@ try {
 }
 
 });
-$_mod.installed("makeup-expander$0.6.0", "makeup-next-id", "0.0.2");
+$_mod.installed("makeup-expander$0.6.1", "makeup-next-id", "0.0.2");
 $_mod.main("/makeup-next-id$0.0.2", "");
 $_mod.def("/makeup-next-id$0.0.2/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
@@ -68,7 +68,7 @@ module.exports = function (el) {
 };
 
 });
-$_mod.installed("makeup-expander$0.6.0", "makeup-exit-emitter", "0.0.4");
+$_mod.installed("makeup-expander$0.6.1", "makeup-exit-emitter", "0.0.4");
 $_mod.main("/makeup-exit-emitter$0.0.4", "");
 $_mod.installed("makeup-exit-emitter$0.0.4", "custom-event-polyfill", "0.3.0");
 $_mod.installed("makeup-exit-emitter$0.0.4", "makeup-next-id", "0.0.1");
@@ -196,7 +196,7 @@ module.exports = {
 };
 
 });
-$_mod.installed("makeup-expander$0.6.0", "makeup-focusables", "0.0.3");
+$_mod.installed("makeup-expander$0.6.1", "makeup-focusables", "0.0.3");
 $_mod.main("/makeup-focusables$0.0.3", "");
 $_mod.def("/makeup-focusables$0.0.3/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
@@ -224,7 +224,7 @@ module.exports = function (el) {
 };
 
 });
-$_mod.def("/makeup-expander$0.6.0/index", function(require, exports, module, __filename, __dirname) { 'use strict';
+$_mod.def("/makeup-expander$0.6.1/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
