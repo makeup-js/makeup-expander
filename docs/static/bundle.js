@@ -991,6 +991,16 @@ module.exports = function () {
             this.keyDownFlag = false;
         }
     }, {
+        key: 'cancelAsync',
+        value: function cancelAsync() {
+            this.expandOnClick = false;
+            this.expandOnFocus = false;
+            this.expandOnHover = false;
+            this.collapseOnClickOut = false;
+            this.collapseOnFocusOut = false;
+            this.collapseOnMouseOut = false;
+        }
+    }, {
         key: 'expandOnClick',
         set: function set(bool) {
             if (bool === true) {

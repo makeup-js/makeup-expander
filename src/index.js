@@ -229,4 +229,13 @@ module.exports = class {
         }
         this.keyDownFlag = false;
     }
+
+    cancelAsync() {
+        this.expandOnClick = false;
+        this.expandOnFocus = false;
+        this.expandOnHover = false;
+        this.collapseOnClickOut = false;
+        this.collapseOnFocusOut = false;
+        this.collapseOnMouseOut = false;
+    }
 };
