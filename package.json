@@ -1,7 +1,7 @@
 {
   "name": "makeup-expander",
   "description": "Creates the basic interactivity for an element that expands and collapses another element.",
-  "version": "0.5.0",
+  "version": "0.6.1",
   "main": "index.js",
   "repository": "https://github.com/makeup-js/makeup-expander.git",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
@@ -19,11 +19,9 @@
     "clean:lasso": "rimraf .cache build",
     "server": "browser-sync start -s --ss docs --index docs/index.html --files docs/index.html",
     "watch": "onchange src/*.js docs/*.js -- npm run build",
-    "transpile": "babel src/index.js --out-file index.js"
+    "transpile": "babel src/index.js --out-file index.js",
+    "version": "npm run prepublishOnly && git add -A docs/static test/static"
   },
-  "pre-commit": [
-    "prepublishOnly"
-  ],
   "keywords": [
     "makeup",
     "ebay",
@@ -47,7 +45,6 @@
     "lasso-cli": "^2",
     "onchange": "^3",
     "parallelshell": "^3",
-    "pre-commit": "^1",
     "puppeteer": "^1.2.0",
     "rimraf": "^2"
   },

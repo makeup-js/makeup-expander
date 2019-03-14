@@ -33,7 +33,7 @@ function _onKeyDown(e) {
     if (keyCode === 13 || keyCode === 32) {
         this.keyDownFlag = true;
 
-        // if hostEl does not naturally trigger click events, we can force one to trigger here.
+        // if host element does not naturally trigger a click event on spacebar, we can force one to trigger here.
         // careful! if host already triggers click events naturally, we end up with a "double-click".
         if (keyCode === 32 && this.options.simulateSpacebarClick === true) {
             this.hostEl.click();
@@ -171,6 +171,16 @@ module.exports = function () {
             this.keyDownFlag = false;
         }
     }, {
+        key: 'cancelAsync',
+        value: function cancelAsync() {
+            this.expandOnClick = false;
+            this.expandOnFocus = false;
+            this.expandOnHover = false;
+            this.collapseOnClickOut = false;
+            this.collapseOnFocusOut = false;
+            this.collapseOnMouseOut = false;
+        }
+    }, {
         key: 'expandOnClick',
         set: function set(bool) {
             if (bool === true) {
@@ -193,6 +203,7 @@ module.exports = function () {
                 this.hostEl.addEventListener('focus', this._hostFocusListener);
 
                 if (this.options.autoCollapse === true) {
+                    this.collapseOnClickOut = true;
                     this.collapseOnFocusOut = true;
                 }
             } else {
