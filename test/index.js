@@ -5,25 +5,30 @@ testData.forEach(function(data, index) {
     describe('For test data ' + index, function() {
         var widgetEl;
         var hostEl;
-        var widget; // eslint-disable-line no-unused-vars
+        var widget;
         var onCollapse;
         var onExpand;
 
-        beforeAll(function() {
-            document.body.innerHTML = data.html;
-            widgetEl = document.querySelector('.expander');
-            hostEl = widgetEl.querySelector('.expander__host');
-            onCollapse = jasmine.createSpy('onCollapse');
-            onExpand = jasmine.createSpy('onExpand');
-
-            widgetEl.addEventListener('expander-expand', onExpand);
-            widgetEl.addEventListener('expander-collapse', onCollapse);
-
-            widget = new Expander(widgetEl, data.options);
-        });
         describe('given the widget is collapsed,', function() {
+            beforeEach(function() {
+                document.body.innerHTML = data.html;
+                widgetEl = document.querySelector('.expander');
+                hostEl = widgetEl.querySelector('.expander__host');
+                onCollapse = jasmine.createSpy('onCollapse');
+                onExpand = jasmine.createSpy('onExpand');
+
+                widgetEl.addEventListener('expander-expand', onExpand);
+                widgetEl.addEventListener('expander-collapse', onCollapse);
+
+                widget = new Expander(widgetEl, data.options);
+
+                widget.collapse();
+                onExpand.calls.reset();
+                onCollapse.calls.reset();
+            });
+
             describe('when the host is clicked', function() {
-                beforeAll(function() {
+                beforeEach(function() {
                     hostEl.click();
                 });
                 it('it should observe the correct number of expand events', function() {
@@ -36,11 +41,9 @@ testData.forEach(function(data, index) {
                     expect(hostEl.getAttribute('aria-expanded')).toEqual(data.collapsedState.click.ariaExpanded);
                 });
             });
+
             describe('when the host is focussed', function() {
-                beforeAll(function() {
-                    widget.collapse();
-                    onExpand.calls.reset();
-                    onCollapse.calls.reset();
+                beforeEach(function() {
                     hostEl.focus();
                 });
                 it('it should observe the correct number of expand events', function() {
@@ -54,14 +57,27 @@ testData.forEach(function(data, index) {
                 });
             });
         });
+
         describe('given the widget is expanded,', function() {
-            beforeAll(function() {
+            beforeEach(function() {
+                document.body.innerHTML = data.html;
+                widgetEl = document.querySelector('.expander');
+                hostEl = widgetEl.querySelector('.expander__host');
+                onCollapse = jasmine.createSpy('onCollapse');
+                onExpand = jasmine.createSpy('onExpand');
+
+                widgetEl.addEventListener('expander-expand', onExpand);
+                widgetEl.addEventListener('expander-collapse', onCollapse);
+
+                widget = new Expander(widgetEl, data.options);
+
                 widget.expand();
                 onExpand.calls.reset();
                 onCollapse.calls.reset();
             });
+
             describe('when the host is clicked', function() {
-                beforeAll(function() {
+                beforeEach(function() {
                     hostEl.click();
                 });
                 it('it should observe the correct number of expand events', function() {
@@ -75,10 +91,7 @@ testData.forEach(function(data, index) {
                 });
             });
             describe('when the host is focussed', function() {
-                beforeAll(function() {
-                    widget.expand();
-                    onExpand.calls.reset();
-                    onCollapse.calls.reset();
+                beforeEach(function() {
                     hostEl.focus();
                 });
                 it('it should observe the correct number of expand events', function() {
@@ -92,10 +105,7 @@ testData.forEach(function(data, index) {
                 });
             });
             describe('when the document is clicked', function() {
-                beforeAll(function() {
-                    widget.expand();
-                    onExpand.calls.reset();
-                    onCollapse.calls.reset();
+                beforeEach(function() {
                     document.body.click();
                 });
                 it('it should observe the correct number of expand events', function() {
@@ -109,10 +119,7 @@ testData.forEach(function(data, index) {
                 });
             });
             describe('when the document is touched', function() {
-                beforeAll(function() {
-                    widget.expand();
-                    onExpand.calls.reset();
-                    onCollapse.calls.reset();
+                beforeEach(function() {
                     document.dispatchEvent(new Event('touchstart'));
                     document.dispatchEvent(new Event('touchend'));
                 });
