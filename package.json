@@ -34,7 +34,7 @@
     "babel-preset-env": "^1",
     "browser-sync": "^2",
     "coveralls": "^3",
-    "eslint": "^4",
+    "eslint": "^5",
     "eslint-config-ebay": "^1",
     "jasmine-core": "^2",
     "karma": "^2",
@@ -43,13 +43,13 @@
     "karma-html-reporter": "~0.2",
     "karma-jasmine": "^1",
     "lasso-cli": "^2",
-    "onchange": "^3",
+    "onchange": "^5",
     "parallelshell": "^3",
     "puppeteer": "^1.2.0",
     "rimraf": "^2"
   },
   "dependencies": {
-    "custom-event-polyfill": "~0.3",
+    "custom-event-polyfill": "^1",
     "makeup-exit-emitter": "~0.0.4",
     "makeup-focusables": "~0.0.3",
     "makeup-next-id": "~0.0.2"
