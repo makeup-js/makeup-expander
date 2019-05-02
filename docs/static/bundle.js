@@ -888,16 +888,17 @@ var ExitEmitter = require('/makeup-exit-emitter$0.0.4/index'/*'makeup-exit-emitt
 var focusables = require('/makeup-focusables$0.0.3/index'/*'makeup-focusables'*/);
 
 var defaultOptions = {
+    alwaysDoFocusManagement: false, // in the case we want mouse click to move focus (e.g. menu buttons)
     autoCollapse: false,
     collapseOnFocusOut: false,
     collapseOnMouseOut: false,
     collapseOnClickOut: false,
     contentSelector: '.expander__content',
+    expandedClass: null,
     expandOnClick: false,
     expandOnFocus: false,
     expandOnHover: false,
     focusManagement: null,
-    expandedClass: null,
     hostSelector: '.expander__host',
     simulateSpacebarClick: false
 };
@@ -954,6 +955,7 @@ module.exports = function () {
         this.el = el;
         this.hostEl = el.querySelector(this.options.hostSelector); // the keyboard focusable host el
         this.expandeeEl = el.querySelector(this.options.contentSelector);
+        this.keyDownFlag = false;
         this.documentClick = false;
 
         // ensure the widget and expandee have an id
@@ -1009,6 +1011,9 @@ module.exports = function () {
                 this.el.dispatchEvent(new CustomEvent('expander-collapse', { bubbles: true, detail: this.expandeeEl }));
             }
         }
+
+        // todo: refactor to remove "isKeyboard" param
+
     }, {
         key: 'expand',
         value: function expand(isKeyboard) {
@@ -1017,7 +1022,8 @@ module.exports = function () {
                 if (this.options.expandedClass) {
                     this.el.classList.add(this.options.expandedClass);
                 }
-                if (isKeyboard === true) {
+                // todo: refactor focus management. We could run into a bad situation where mouse hover moves focus.
+                if (isKeyboard === true || this.options.alwaysDoFocusManagement === true) {
                     var focusManagement = this.options.focusManagement;
 
                     if (focusManagement === 'content') {
