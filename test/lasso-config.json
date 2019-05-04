@@ -9,6 +9,30 @@
       ]
     },
     {
+      "name": "custom-event-polyfill",
+      "dependencies": [
+        "require: custom-event-polyfill"
+      ]
+    },
+    {
+      "name": "makeup-next-id",
+      "dependencies": [
+        "require: makeup-next-id"
+      ]
+    },
+    {
+      "name": "makeup-exit-emitter",
+      "dependencies": [
+        "require: makeup-exit-emitter"
+      ]
+    },
+    {
+      "name": "makeup-focusables",
+      "dependencies": [
+        "require: makeup-focusables"
+      ]
+    },
+    {
       "name": "bundle-module",
       "dependencies": [
         "require: ../index.js"

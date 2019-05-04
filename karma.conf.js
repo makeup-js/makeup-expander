@@ -16,6 +16,10 @@ module.exports = function (config) {
     // list of files / patterns to load in the browser
     files: [
       'test/static/lasso-client.js',
+      'test/static/custom-event-polyfill.js',
+      'test/static/makeup-next-id.js',
+      'test/static/makeup-focusables.js',
+      'test/static/makeup-exit-emitter.js',
       'test/static/bundle-module.js',
       'test/static/bundle-test.js',
       'test/ready.js'

@@ -110,7 +110,11 @@ Set the following properties to true or false to enable or disable the behaviour
 * [makeup-exit-emitter](https://github.com/makeup-js/makeup-exit-emitter)
 * [makeup-focusables](https://github.com/makeup-js/makeup-focusables)
 * [makeup-next-id](https://github.com/makeup-js/makeup-next-id)
+
+## Polyfills
+
 * [custom-event-polyfill](https://github.com/krambuhl/custom-event-polyfill)
+* [nodelist-foreach-polyfill](https://github.com/imagitama/nodelist-foreach-polyfill)
 
 ## Development
 
@@ -120,11 +124,6 @@ Set the following properties to true or false to enable or disable the behaviour
 * `npm run fix`
 * `npm run build`
 * `npm run clean`
-
-The following hooks exist, and do not need to be invoked manually:
-
-* `npm prepublish` cleans, lints, tests and builds on every `npm publish` command
-* `pre-commit` cleans, lints, tests and builds on every `git commit` command
 
 ## Test Reports
 
