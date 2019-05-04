@@ -1,8 +1,8 @@
-$_mod.installed("makeup-expander$0.7.1", "custom-event-polyfill", "1.0.7");
-$_mod.installed("makeup-expander$0.7.1", "makeup-next-id", "0.0.2");
-$_mod.installed("makeup-expander$0.7.1", "makeup-exit-emitter", "0.0.4");
-$_mod.installed("makeup-expander$0.7.1", "makeup-focusables", "0.0.3");
-$_mod.def("/makeup-expander$0.7.1/index", function(require, exports, module, __filename, __dirname) { 'use strict';
+$_mod.installed("makeup-expander$0.7.2", "custom-event-polyfill", "1.0.7");
+$_mod.installed("makeup-expander$0.7.2", "makeup-next-id", "0.0.2");
+$_mod.installed("makeup-expander$0.7.2", "makeup-exit-emitter", "0.0.4");
+$_mod.installed("makeup-expander$0.7.2", "makeup-focusables", "0.0.3");
+$_mod.def("/makeup-expander$0.7.2/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
