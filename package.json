@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "custom-event-polyfill": "^1",
-    "makeup-exit-emitter": "~0.0.4",
+    "makeup-exit-emitter": "~0.1.0",
     "makeup-focusables": "~0.0.3",
     "makeup-next-id": "~0.0.2"
   },
