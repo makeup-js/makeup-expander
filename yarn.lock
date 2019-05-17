@@ -2067,10 +2067,6 @@ custom-event-polyfill@^1:
   resolved "https://registry.yarnpkg.com/custom-event-polyfill/-/custom-event-polyfill-1.0.7.tgz#9bc993ddda937c1a30ccd335614c6c58c4f87aee"
   integrity sha512-TDDkd5DkaZxZFM8p+1I3yAlvM3rSr1wbrOliG4yJiwinMZN8z/iGL7BTlDkrJcYTmgUSb4ywVCc3ZaUtOtC76w==
 
-custom-event-polyfill@~0.3:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/custom-event-polyfill/-/custom-event-polyfill-0.3.0.tgz#99807839be62edb446b645832e0d80ead6fa1888"
-
 custom-event@~1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/custom-event/-/custom-event-1.0.1.tgz#5d02a46850adf1b4a317946a3928fccb5bfd0425"
@@ -4026,24 +4022,23 @@ lru-cache@4.1.x:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
 
-makeup-exit-emitter@~0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/makeup-exit-emitter/-/makeup-exit-emitter-0.0.4.tgz#26482e73db3ef6ef5f8ac2c3c21e8197488fd458"
+makeup-exit-emitter@~0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/makeup-exit-emitter/-/makeup-exit-emitter-0.1.1.tgz#4e5ab23cfc2c2d094784685673f8272d5dab1c85"
+  integrity sha512-6yAkYnvjj5aGLWHdjSNasF/tD6AlAgHEvNE0iwYhYAKwB2/YNR79NWLRri2qSXgRiF8AfM7p5pfKTlMCNxWRYA==
   dependencies:
-    custom-event-polyfill "~0.3"
-    makeup-next-id "~0.0"
+    custom-event-polyfill "^1"
+    makeup-next-id "~0.0.3"
 
-makeup-focusables@~0.0.3:
+makeup-focusables@~0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/makeup-focusables/-/makeup-focusables-0.0.4.tgz#1a324b1e7c026f2254dd599caa4099344f1c266c"
+  integrity sha512-2yOaXhTnltA9Fb9+sSk2d2oS5150/qMhyjvFYUUWBxlnVpSR7H7cktH/WLgYl7Nab79W29pNUnAIHX9SpnWKKQ==
+
+makeup-next-id@~0.0.3:
   version "0.0.3"
-  resolved "https://registry.yarnpkg.com/makeup-focusables/-/makeup-focusables-0.0.3.tgz#e30f36a99beb7c5166daafb8f823fefcc7a551fa"
-
-makeup-next-id@~0.0:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/makeup-next-id/-/makeup-next-id-0.0.1.tgz#e4bf4821616c85c96d09631aa166732006468f06"
-
-makeup-next-id@~0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/makeup-next-id/-/makeup-next-id-0.0.2.tgz#70f19812b0b5cb8d5f0f7f78719179ea4b61a0ef"
+  resolved "https://registry.yarnpkg.com/makeup-next-id/-/makeup-next-id-0.0.3.tgz#75cf06cf39f85fc96f4f6d5a3bec95086b34769c"
+  integrity sha512-ZVRpb31OK8P2qjJzJf2OAQShUmutHvexrCPdtw0SOw1RaIFCD6NPsfnaIapMwZLZWfvnlBijtvQu0lhQIpSEiQ==
 
 map-cache@^0.2.2:
   version "0.2.2"
