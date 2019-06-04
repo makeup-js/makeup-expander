@@ -32,7 +32,7 @@ describe('given a widget with default options', function() {
 
     describe('when widget is collapsed', function() {
         beforeAll(function() {
-            widget.collapse();
+            widget.expanded = false;
             onCollapse.calls.reset();
         });
 
@@ -99,7 +99,7 @@ describe('given a widget with default options', function() {
 describe('given a widget with expandOnClick=true', function() {
     beforeAll(function() {
         widget = new Expander(widgetEl, { expandOnClick: true });
-        widget.collapse();
+        widget.expanded = false;
         onExpand.calls.reset();
         onCollapse.calls.reset();
     });
@@ -122,7 +122,7 @@ describe('given a widget with expandOnClick=true', function() {
             });
 
             afterAll(function() {
-                widget.collapse();
+                widget.expanded = false;
                 hostEl.blur();
                 onExpand.calls.reset();
                 onCollapse.calls.reset();
@@ -143,14 +143,14 @@ describe('given a widget with expandOnClick=true', function() {
 
         describe('and the host is focussed', function() {
             beforeAll(function() {
-                widget.collapse();
+                widget.expanded = false;
                 onExpand.calls.reset();
                 onCollapse.calls.reset();
                 hostEl.focus();
             });
 
             afterAll(function() {
-                widget.collapse();
+                widget.expanded = false;
                 hostEl.blur();
                 onExpand.calls.reset();
                 onCollapse.calls.reset();
@@ -171,14 +171,14 @@ describe('given a widget with expandOnClick=true', function() {
 
         describe('and the host is hovered', function() {
             beforeAll(function() {
-                widget.collapse();
+                widget.expanded = false;
                 onExpand.calls.reset();
                 onCollapse.calls.reset();
                 hostEl.dispatchEvent(new Event('mouseenter'));
             });
 
             afterAll(function() {
-                widget.collapse();
+                widget.expanded = false;
                 hostEl.blur();
                 onExpand.calls.reset();
                 onCollapse.calls.reset();
@@ -199,14 +199,14 @@ describe('given a widget with expandOnClick=true', function() {
 
         describe('and the document is clicked', function() {
             beforeAll(function() {
-                widget.collapse();
+                widget.expanded = false;
                 onExpand.calls.reset();
                 onCollapse.calls.reset();
                 document.body.click();
             });
 
             afterAll(function() {
-                widget.collapse();
+                widget.expanded = false;
                 hostEl.blur();
                 onExpand.calls.reset();
                 onCollapse.calls.reset();
@@ -230,7 +230,7 @@ describe('given a widget with expandOnClick=true', function() {
 describe('given a widget with expandOnFocus=true', function() {
     beforeAll(function() {
         widget = new Expander(widgetEl, { expandOnFocus: true });
-        widget.collapse();
+        widget.expanded = false;
         onExpand.calls.reset();
         onCollapse.calls.reset();
     });
@@ -253,7 +253,7 @@ describe('given a widget with expandOnFocus=true', function() {
             });
 
             afterAll(function() {
-                widget.collapse();
+                widget.expanded = false;
                 hostEl.blur();
                 onExpand.calls.reset();
                 onCollapse.calls.reset();
@@ -278,7 +278,7 @@ describe('given a widget with expandOnFocus=true', function() {
             });
 
             afterAll(function() {
-                widget.collapse();
+                widget.expanded = false;
                 hostEl.blur();
                 onExpand.calls.reset();
                 onCollapse.calls.reset();
@@ -303,7 +303,7 @@ describe('given a widget with expandOnFocus=true', function() {
             });
 
             afterAll(function() {
-                widget.collapse();
+                widget.expanded = false;
                 hostEl.blur();
                 onExpand.calls.reset();
                 onCollapse.calls.reset();
@@ -328,7 +328,7 @@ describe('given a widget with expandOnFocus=true', function() {
             });
 
             afterAll(function() {
-                widget.collapse();
+                widget.expanded = false;
                 hostEl.blur();
                 onExpand.calls.reset();
                 onCollapse.calls.reset();
@@ -352,7 +352,7 @@ describe('given a widget with expandOnFocus=true', function() {
 describe('given a widget with expandOnHover=true', function() {
     beforeAll(function() {
         widget = new Expander(widgetEl, { expandOnHover: true });
-        widget.collapse();
+        widget.expanded = false;
         onExpand.calls.reset();
         onCollapse.calls.reset();
     });
@@ -375,7 +375,7 @@ describe('given a widget with expandOnHover=true', function() {
             });
 
             afterAll(function() {
-                widget.collapse();
+                widget.expanded = false;
                 onExpand.calls.reset();
                 onCollapse.calls.reset();
             });
@@ -399,7 +399,7 @@ describe('given a widget with expandOnHover=true', function() {
             });
 
             afterAll(function() {
-                widget.collapse();
+                widget.expanded = false;
                 onExpand.calls.reset();
                 onCollapse.calls.reset();
             });
@@ -423,7 +423,7 @@ describe('given a widget with expandOnHover=true', function() {
             });
 
             afterAll(function() {
-                widget.collapse();
+                widget.expanded = false;
                 hostEl.dispatchEvent(new Event('mouseout'));
                 onExpand.calls.reset();
                 onCollapse.calls.reset();
@@ -448,7 +448,7 @@ describe('given a widget with expandOnHover=true', function() {
             });
 
             afterAll(function() {
-                widget.collapse();
+                widget.expanded = false;
                 hostEl.blur();
                 onExpand.calls.reset();
                 onCollapse.calls.reset();
@@ -475,7 +475,7 @@ describe('given a widget with expandedClass=foo', function() {
     });
 
     afterAll(function() {
-        widget.collapse();
+        widget.expanded = false;
         widget.destroy();
         onExpand.calls.reset();
         onCollapse.calls.reset();
@@ -483,7 +483,7 @@ describe('given a widget with expandedClass=foo', function() {
 
     describe('when widget is expanded', function() {
         beforeAll(function() {
-            widget.expand();
+            widget.expanded = true;
         });
 
         it('it should contain class=foo-expanded', function() {
@@ -493,7 +493,7 @@ describe('given a widget with expandedClass=foo', function() {
 
     describe('when widget is collapsed', function() {
         beforeAll(function() {
-            widget.collapse();
+            widget.expanded = false;
         });
 
         it('it should not contain class=foo-expanded', function() {
