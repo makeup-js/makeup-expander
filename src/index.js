@@ -5,13 +5,13 @@ const ExitEmitter = require('makeup-exit-emitter');
 const focusables = require('makeup-focusables');
 
 const defaultOptions = {
+    alwaysDoFocusManagement: false,
     ariaControls: true,
     autoCollapse: false,
     collapseOnFocusOut: false,
     collapseOnMouseOut: false,
     collapseOnClickOut: false,
     contentSelector: '.expander__content',
-    alwaysDoFocusManagement: false,
     expandedClass: null,
     expandOnClick: false,
     expandOnFocus: false,
