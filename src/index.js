@@ -182,10 +182,12 @@ module.exports = class {
         }
     }
 
+    // todo replace with expanded getter
     isExpanded() {
         return this.hostEl.getAttribute('aria-expanded') === 'true';
     }
 
+    // todo replace with expanded setter
     collapse() {
         if (this.isExpanded() === true) {
             this.hostEl.setAttribute('aria-expanded', 'false');
@@ -197,6 +199,7 @@ module.exports = class {
     }
 
     // todo: refactor to remove "isKeyboard" param
+    // todo replace with expanded setter
     expand(isKeyboard) {
         if (this.isExpanded() === false) {
             this.hostEl.setAttribute('aria-expanded', 'true');
@@ -234,6 +237,7 @@ module.exports = class {
         this.keyDownFlag = false;
     }
 
+    // todo: rename this method
     cancelAsync() {
         this.expandOnClick = false;
         this.expandOnFocus = false;
@@ -241,5 +245,23 @@ module.exports = class {
         this.collapseOnClickOut = false;
         this.collapseOnFocusOut = false;
         this.collapseOnMouseOut = false;
+    }
+
+    destroy() {
+        this.cancelAsync();
+
+        this._hostKeyDownListener = null;
+        this._documentClickListener = null;
+        this._documentTouchStartListener = null;
+        this._documentTouchMoveListener = null;
+        this._documentTouchEndListener = null;
+        this._hostClickListener = null;
+        this._hostFocusListener = null;
+        this._hostHoverListener = null;
+        this._focusExitListener = null;
+        this._mouseLeaveListener = null;
+        this._clickOutListener = null;
+
+        this._destroyed = true;
     }
 };

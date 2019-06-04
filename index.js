@@ -119,9 +119,11 @@ function () {
 
   _createClass(_class, [{
     key: "isExpanded",
+    // todo replace with expanded getter
     value: function isExpanded() {
       return this.hostEl.getAttribute('aria-expanded') === 'true';
-    }
+    } // todo replace with expanded setter
+
   }, {
     key: "collapse",
     value: function collapse() {
@@ -138,6 +140,7 @@ function () {
         }));
       }
     } // todo: refactor to remove "isKeyboard" param
+    // todo replace with expanded setter
 
   }, {
     key: "expand",
@@ -185,7 +188,8 @@ function () {
       }
 
       this.keyDownFlag = false;
-    }
+    } // todo: rename this method
+
   }, {
     key: "cancelAsync",
     value: function cancelAsync() {
@@ -195,6 +199,23 @@ function () {
       this.collapseOnClickOut = false;
       this.collapseOnFocusOut = false;
       this.collapseOnMouseOut = false;
+    }
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      this.cancelAsync();
+      this._hostKeyDownListener = null;
+      this._documentClickListener = null;
+      this._documentTouchStartListener = null;
+      this._documentTouchMoveListener = null;
+      this._documentTouchEndListener = null;
+      this._hostClickListener = null;
+      this._hostFocusListener = null;
+      this._hostHoverListener = null;
+      this._focusExitListener = null;
+      this._mouseLeaveListener = null;
+      this._clickOutListener = null;
+      this._destroyed = true;
     }
   }, {
     key: "expandOnClick",
