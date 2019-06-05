@@ -4121,6 +4121,13 @@ makeup-next-id@~0.0.3:
   resolved "https://registry.yarnpkg.com/makeup-next-id/-/makeup-next-id-0.0.3.tgz#75cf06cf39f85fc96f4f6d5a3bec95086b34769c"
   integrity sha512-ZVRpb31OK8P2qjJzJf2OAQShUmutHvexrCPdtw0SOw1RaIFCD6NPsfnaIapMwZLZWfvnlBijtvQu0lhQIpSEiQ==
 
+makeup-next-id@~0.1:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/makeup-next-id/-/makeup-next-id-0.1.0.tgz#ab97baeac3bf98db93ddb2d8bb064f134e239d19"
+  integrity sha512-lbTF8+izna9RCqdn7hsULDSVkPs2h2fyxTOApXiWRylDPMHxFwPss/72zV8qn3suRrEFUUguYFlsT5S8jrEgbQ==
+  dependencies:
+    nanoid "^2"
+
 map-cache@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/map-cache/-/map-cache-0.2.2.tgz#c32abd0bd6525d9b051645bb4f26ac5dc98a0dbf"
@@ -4361,6 +4368,11 @@ nan@^2.12.1:
   version "2.13.2"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.13.2.tgz#f51dc7ae66ba7d5d55e1e6d4d8092e802c9aefe7"
   integrity sha512-TghvYc72wlMGMVMluVo9WRJc0mB8KxxF/gZ4YYFy7V2ZQX9l7rgbPg7vjS9mt6U5HXODVFVI2bOduCzwOMv/lw==
+
+nanoid@^2:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-2.0.3.tgz#dde999e173bc9d7bd2ee2746b89909ade98e075e"
+  integrity sha512-NbaoqdhIYmY6FXDRB4eYtDVC9Z9eCbn8TyaiC16LNKtpPv/aqa0tOPD8y6gNE4yUNnaZ7LLhYtXOev/6+cBtfw==
 
 nanomatch@^1.2.9:
   version "1.2.13"

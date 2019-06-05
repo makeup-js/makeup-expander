@@ -108,8 +108,8 @@ module.exports = class {
         this.contentEl = el.querySelector(this.options.contentSelector);
 
         // ensure the widget and expandee have an id
-        nextID(this.el, 'expander');
-        nextID(this.contentEl, `${this.el.id}-content`);
+        nextID(this.el, 'expander-');
+        this.contentEl.id = `${this.el.id}-content`;
 
         ExitEmitter.addFocusExit(this.el);
 

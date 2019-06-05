@@ -124,8 +124,8 @@ function () {
 
     this.contentEl = el.querySelector(this.options.contentSelector); // ensure the widget and expandee have an id
 
-    nextID(this.el, 'expander');
-    nextID(this.contentEl, "".concat(this.el.id, "-content"));
+    nextID(this.el, 'expander-');
+    this.contentEl.id = "".concat(this.el.id, "-content");
     ExitEmitter.addFocusExit(this.el);
     this._hostKeyDownListener = onHostKeyDown.bind(this);
     this._hostMouseDownListener = onHostMouseDown.bind(this);

@@ -57,7 +57,7 @@
     "custom-event-polyfill": "^1",
     "makeup-exit-emitter": "~0.1.1",
     "makeup-focusables": "~0.0.4",
-    "makeup-next-id": "~0.0.3"
+    "makeup-next-id": "~0.1"
   },
   "files": [
     "browser.json",
