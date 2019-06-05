@@ -5,7 +5,8 @@ const ExitEmitter = require('makeup-exit-emitter');
 const focusables = require('makeup-focusables');
 
 const defaultOptions = {
-    alwaysDoFocusManagement: false, // in the case we want mouse click to move focus (e.g. menu buttons)
+    alwaysDoFocusManagement: false,
+    ariaControls: true,
     autoCollapse: false,
     collapseOnFocusOut: false,
     collapseOnMouseOut: false,
@@ -20,32 +21,49 @@ const defaultOptions = {
     simulateSpacebarClick: false
 };
 
-// when options.expandOnClick is true, we set a flag if spacebar or enter are pressed
-// the idea being that this flag is set BEFORE the click event
-function _onKeyDown(e) {
-    const keyCode = e.keyCode;
-
-    if (keyCode === 13 || keyCode === 32) {
-        this.keyDownFlag = true;
-
-        // if host element does not naturally trigger a click event on spacebar, we can force one to trigger here.
-        // careful! if host already triggers click events naturally, we end up with a "double-click".
-        if (keyCode === 32 && this.options.simulateSpacebarClick === true) {
-            this.hostEl.click();
-        }
+function onHostKeyDown(e) {
+    if (e.keyCode === 13 || e.keyCode === 32) {
+        this._keyboardClickFlag = true;
+    }
+    // if host element does not naturally trigger a click event on spacebar, we can force one to trigger here.
+    // careful! if host already triggers click events naturally, we end up with a "double-click".
+    if (e.keyCode === 32 && this.options.simulateSpacebarClick === true) {
+        this.hostEl.click();
     }
 }
 
-function processDocumentClick(event, el) {
-    if (el.contains(event.target) === false) {
-        el.dispatchEvent(new CustomEvent('clickOut', {
-            bubbles: false
-        }));
-    }
+function onHostMouseDown() {
+    this._mouseClickFlag = true;
 }
 
-function _onDocumentClick(e) {
-    processDocumentClick(e, this.el);
+function onHostClick() {
+    this._expandWasKeyboardClickActivated = this._keyboardClickFlag;
+    this._expandWasMouseClickActivated = this._mouseClickFlag;
+    this.expanded = !this.expanded;
+}
+
+function onHostFocus() {
+    this._expandWasFocusActivated = true;
+    this.expanded = true;
+}
+
+function onHostHover() {
+    this._expandWasHoverActivated = true;
+    this.expanded = true;
+}
+
+function onFocusExit() {
+    this.expanded = false;
+}
+
+function onMouseLeave() {
+    this.expanded = false;
+}
+
+function _onDocumentClick() {
+    if (this.el.contains(event.target) === false) {
+        this.expanded = false;
+    }
 }
 
 function _onDocumentTouchStart() {
@@ -56,10 +74,28 @@ function _onDocumentTouchMove() {
     this.documentClick = false;
 }
 
-function _onDocumentTouchEnd(e) {
-    if (this.documentClick) {
+function _onDocumentTouchEnd() {
+    if (this.documentClick === true) {
         this.documentClick = false;
-        processDocumentClick(e, this.el);
+        if (this.el.contains(event.target) === false) {
+            this.expanded = false;
+        }
+    }
+}
+
+function manageFocus(focusManagement, contentEl) {
+    if (focusManagement === 'content') {
+        contentEl.setAttribute('tabindex', '-1');
+        contentEl.focus();
+    } else if (focusManagement === 'focusable') {
+        focusables(contentEl)[0].focus();
+    } else if (focusManagement === 'interactive') {
+        focusables(contentEl, true)[0].focus();
+    } else if (focusManagement !== null) {
+        const el = contentEl.querySelector(`#${focusManagement}`);
+        if (el) {
+            el.focus();
+        }
     }
 }
 
@@ -69,35 +105,33 @@ module.exports = class {
 
         this.el = el;
         this.hostEl = el.querySelector(this.options.hostSelector); // the keyboard focusable host el
-        this.expandeeEl = el.querySelector(this.options.contentSelector);
-        this.keyDownFlag = false;
-        this.documentClick = false;
+        this.contentEl = el.querySelector(this.options.contentSelector);
 
         // ensure the widget and expandee have an id
         nextID(this.el, 'expander');
-        nextID(this.expandeeEl, `${this.el.id}-content`);
+        nextID(this.contentEl, `${this.el.id}-content`);
 
         ExitEmitter.addFocusExit(this.el);
 
-        this._hostKeyDownListener = _onKeyDown.bind(this);
+        this._hostKeyDownListener = onHostKeyDown.bind(this);
+        this._hostMouseDownListener = onHostMouseDown.bind(this);
         this._documentClickListener = _onDocumentClick.bind(this);
         this._documentTouchStartListener = _onDocumentTouchStart.bind(this);
         this._documentTouchMoveListener = _onDocumentTouchMove.bind(this);
         this._documentTouchEndListener = _onDocumentTouchEnd.bind(this);
-
-        this._hostClickListener = this.toggle.bind(this);
-        this._hostFocusListener = this.expand.bind(this);
-        this._hostHoverListener = this.expand.bind(this);
-
-        this._focusExitListener = this.collapse.bind(this);
-        this._mouseLeaveListener = this.collapse.bind(this);
-        this._clickOutListener = this.collapse.bind(this);
+        this._hostClickListener = onHostClick.bind(this);
+        this._hostFocusListener = onHostFocus.bind(this);
+        this._hostHoverListener = onHostHover.bind(this);
+        this._focusExitListener = onFocusExit.bind(this);
+        this._mouseLeaveListener = onMouseLeave.bind(this);
 
         if (this.hostEl.getAttribute('aria-expanded') === null) {
             this.hostEl.setAttribute('aria-expanded', 'false');
         }
 
-        this.hostEl.setAttribute('aria-controls', this.expandeeEl.id);
+        if (this.options.ariaControls === true) {
+            this.hostEl.setAttribute('aria-controls', this.contentEl.id);
+        }
 
         this.expandOnClick = this.options.expandOnClick;
         this.expandOnFocus = this.options.expandOnFocus;
@@ -113,6 +147,7 @@ module.exports = class {
     set expandOnClick(bool) {
         if (bool === true) {
             this.hostEl.addEventListener('keydown', this._hostKeyDownListener);
+            this.hostEl.addEventListener('mousedown', this._hostMouseDownListener);
             this.hostEl.addEventListener('click', this._hostClickListener);
 
             if (this.options.autoCollapse === true) {
@@ -121,6 +156,7 @@ module.exports = class {
             }
         } else {
             this.hostEl.removeEventListener('click', this._hostClickListener);
+            this.hostEl.removeEventListener('mousedown', this._hostMouseDownListener);
             this.hostEl.removeEventListener('keydown', this._hostKeyDownListener);
         }
     }
@@ -156,9 +192,7 @@ module.exports = class {
             document.addEventListener('touchstart', this._documentTouchStartListener);
             document.addEventListener('touchmove', this._documentTouchMoveListener);
             document.addEventListener('touchend', this._documentTouchEndListener);
-            this.el.addEventListener('clickOut', this._clickOutListener);
         } else {
-            this.el.removeEventListener('clickOut', this._clickOutListener);
             document.removeEventListener('click', this._documentClickListener);
             document.removeEventListener('touchstart', this._documentTouchStartListener);
             document.removeEventListener('touchmove', this._documentTouchMoveListener);
@@ -182,75 +216,55 @@ module.exports = class {
         }
     }
 
-    // todo replace with expanded getter
-    isExpanded() {
+    get expanded() {
         return this.hostEl.getAttribute('aria-expanded') === 'true';
     }
 
-    // todo replace with expanded setter
-    collapse() {
-        if (this.isExpanded() === true) {
-            this.hostEl.setAttribute('aria-expanded', 'false');
-            if (this.options.expandedClass) {
-                this.el.classList.remove(this.options.expandedClass);
-            }
-            this.el.dispatchEvent(new CustomEvent('expander-collapse', { bubbles: true, detail: this.expandeeEl }));
-        }
-    }
-
-    // todo: refactor to remove "isKeyboard" param
-    // todo replace with expanded setter
-    expand(isKeyboard) {
-        if (this.isExpanded() === false) {
+    set expanded(bool) {
+        if (bool === true && this.expanded === false) {
             this.hostEl.setAttribute('aria-expanded', 'true');
             if (this.options.expandedClass) {
                 this.el.classList.add(this.options.expandedClass);
             }
-            // todo: refactor focus management. We could run into a bad situation where mouse hover moves focus.
-            if (isKeyboard === true || this.options.alwaysDoFocusManagement === true) {
-                const focusManagement = this.options.focusManagement;
-
-                if (focusManagement === 'content') {
-                    this.expandeeEl.setAttribute('tabindex', '-1');
-                    this.expandeeEl.focus();
-                } else if (focusManagement === 'focusable') {
-                    focusables(this.expandeeEl)[0].focus();
-                } else if (focusManagement === 'interactive') {
-                    focusables(this.expandeeEl, true)[0].focus();
-                } else if (focusManagement !== null) {
-                    const el = this.expandeeEl.querySelector(`#${focusManagement}`);
-                    if (el) {
-                        el.focus();
-                    }
-                }
+            if (this._expandWasKeyboardClickActivated ||
+                (this._expandWasMouseClickActivated && this.options.alwaysDoFocusManagement)) {
+                manageFocus(this.options.focusManagement, this.contentEl);
             }
-            this.el.dispatchEvent(new CustomEvent('expander-expand', { bubbles: true, detail: this.expandeeEl }));
+            this.el.dispatchEvent(new CustomEvent('expander-expand', { bubbles: true, detail: this.contentEl }));
         }
+
+        if (bool === false && this.expanded === true) {
+            this.hostEl.setAttribute('aria-expanded', 'false');
+            if (this.options.expandedClass) {
+                this.el.classList.remove(this.options.expandedClass);
+            }
+            this.el.dispatchEvent(new CustomEvent('expander-collapse', { bubbles: true, detail: this.contentEl }));
+        }
+
+        this._expandWasKeyboardClickActivated = false;
+        this._expandWasMouseClickActivated = false;
+        this._expandWasFocusActivated = false;
+        this._expandWasHoverActivated = false;
+        this._keyboardClickFlag = false;
+        this._mouseClickFlag = false;
     }
 
-    toggle() {
-        if (this.isExpanded() === true) {
-            this.collapse();
-        } else {
-            this.expand(this.keyDownFlag);
+    sleep() {
+        if (this._destroyed !== true) {
+            this.expandOnClick = false;
+            this.expandOnFocus = false;
+            this.expandOnHover = false;
+            this.collapseOnClickOut = false;
+            this.collapseOnFocusOut = false;
+            this.collapseOnMouseOut = false;
         }
-        this.keyDownFlag = false;
-    }
-
-    // todo: rename this method
-    cancelAsync() {
-        this.expandOnClick = false;
-        this.expandOnFocus = false;
-        this.expandOnHover = false;
-        this.collapseOnClickOut = false;
-        this.collapseOnFocusOut = false;
-        this.collapseOnMouseOut = false;
     }
 
     destroy() {
-        this.cancelAsync();
-
+        this.sleep();
+        this._destroyed = true;
         this._hostKeyDownListener = null;
+        this._hostMouseDownListener = null;
         this._documentClickListener = null;
         this._documentTouchStartListener = null;
         this._documentTouchMoveListener = null;
@@ -260,8 +274,30 @@ module.exports = class {
         this._hostHoverListener = null;
         this._focusExitListener = null;
         this._mouseLeaveListener = null;
-        this._clickOutListener = null;
+    }
 
-        this._destroyed = true;
+    // DEPRECATED (remove in v1.0.0)
+    isExpanded() {
+        return this.expanded;
+    }
+
+    // DEPRECATED (remove in v1.0.0)
+    expand() {
+        this.expanded = true;
+    }
+
+    // DEPRECATED (remove in v1.0.0)
+    collapse() {
+        this.expanded = false;
+    }
+
+    // DEPRECATED (remove in v1.0.0)
+    toggle() {
+        this.expanded = !this.expanded;
+    }
+
+    // DEPRECATED (remove in v1.0.0)
+    cancelAsync() {
+        this.sleep();
     }
 };
