@@ -4159,28 +4159,23 @@ lru-cache@4.1.x:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
 
-makeup-exit-emitter@~0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/makeup-exit-emitter/-/makeup-exit-emitter-0.1.1.tgz#4e5ab23cfc2c2d094784685673f8272d5dab1c85"
-  integrity sha512-6yAkYnvjj5aGLWHdjSNasF/tD6AlAgHEvNE0iwYhYAKwB2/YNR79NWLRri2qSXgRiF8AfM7p5pfKTlMCNxWRYA==
+makeup-exit-emitter@~0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/makeup-exit-emitter/-/makeup-exit-emitter-0.2.0.tgz#8db51f2f815bd80d1544ddaa3e24edb2546ef261"
+  integrity sha512-rYWxuFyF7rdf36B06IvN/Y6Q/vQqhrIRyzyR7y2BL3cdkqboYlMxGceqVWPpS9ZyQ7b36r7lRG4sxavec5rzfw==
   dependencies:
     custom-event-polyfill "^1"
-    makeup-next-id "~0.0.3"
+    makeup-next-id "~0.1.1"
 
 makeup-focusables@~0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/makeup-focusables/-/makeup-focusables-0.0.4.tgz#1a324b1e7c026f2254dd599caa4099344f1c266c"
   integrity sha512-2yOaXhTnltA9Fb9+sSk2d2oS5150/qMhyjvFYUUWBxlnVpSR7H7cktH/WLgYl7Nab79W29pNUnAIHX9SpnWKKQ==
 
-makeup-next-id@~0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/makeup-next-id/-/makeup-next-id-0.0.3.tgz#75cf06cf39f85fc96f4f6d5a3bec95086b34769c"
-  integrity sha512-ZVRpb31OK8P2qjJzJf2OAQShUmutHvexrCPdtw0SOw1RaIFCD6NPsfnaIapMwZLZWfvnlBijtvQu0lhQIpSEiQ==
-
-makeup-next-id@~0.1:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/makeup-next-id/-/makeup-next-id-0.1.0.tgz#ab97baeac3bf98db93ddb2d8bb064f134e239d19"
-  integrity sha512-lbTF8+izna9RCqdn7hsULDSVkPs2h2fyxTOApXiWRylDPMHxFwPss/72zV8qn3suRrEFUUguYFlsT5S8jrEgbQ==
+makeup-next-id@~0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/makeup-next-id/-/makeup-next-id-0.1.1.tgz#1ea704fed3195c219ab13d7c55731615c3e0eaf0"
+  integrity sha512-igmvG0iQYp+j+PiRz2Q5AfcS+MeBz45me7APWSpwtiktRvNKEpbM8I32gT8E3RMxt3rw//wciuS1Y7kYWxbRUg==
   dependencies:
     nanoid "^2"
 

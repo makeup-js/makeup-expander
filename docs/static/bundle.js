@@ -662,9 +662,9 @@ $_mod.def("/custom-event-polyfill$1.0.7/polyfill", function(require, exports, mo
 
 });
 $_mod.run("/custom-event-polyfill$1.0.7/polyfill");
-$_mod.installed("makeup-expander$0.7.3", "makeup-next-id", "0.1.0");
-$_mod.main("/makeup-next-id$0.1.0", "");
-$_mod.installed("makeup-next-id$0.1.0", "nanoid", "2.0.3");
+$_mod.installed("makeup-expander$0.7.3", "makeup-next-id", "0.1.1");
+$_mod.main("/makeup-next-id$0.1.1", "");
+$_mod.installed("makeup-next-id$0.1.1", "nanoid", "2.0.3");
 $_mod.main("/nanoid$2.0.3", "");
 $_mod.remap("/nanoid$2.0.3/index", "/nanoid$2.0.3/index.browser");
 $_mod.builtin("process", "/process$0.11.10/browser");
@@ -882,7 +882,7 @@ module.exports = function (size) {
 }
 
 });
-$_mod.def("/makeup-next-id$0.1.0/index", function(require, exports, module, __filename, __dirname) { 'use strict';
+$_mod.def("/makeup-next-id$0.1.1/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
 var nanoid = require('/nanoid$2.0.3/index.browser'/*'nanoid'*/);
 
@@ -892,8 +892,9 @@ var randomPortion = nanoid(3);
 
 module.exports = function (el) {
   var prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : defaultPrefix;
-  // join first prefix with random portion to create key
-  var key = "".concat(prefix).concat(randomPortion); // initialise key in sequence map if necessary
+  var separator = prefix === '' ? '' : '-'; // join first prefix with random portion to create key
+
+  var key = "".concat(prefix).concat(separator).concat(randomPortion); // initialise key in sequence map if necessary
 
   sequenceMap[key] = sequenceMap[key] || 0;
 
@@ -905,32 +906,11 @@ module.exports = function (el) {
 };
 
 });
-$_mod.installed("makeup-expander$0.7.3", "makeup-exit-emitter", "0.1.1");
-$_mod.main("/makeup-exit-emitter$0.1.1", "");
-$_mod.installed("makeup-exit-emitter$0.1.1", "custom-event-polyfill", "1.0.7");
-$_mod.installed("makeup-exit-emitter$0.1.1", "makeup-next-id", "0.0.3");
-$_mod.main("/makeup-next-id$0.0.3", "");
-$_mod.def("/makeup-next-id$0.0.3/index", function(require, exports, module, __filename, __dirname) { 'use strict';
-
-var sequenceMap = {};
-var defaultPrefix = 'nid';
-
-module.exports = function (el) {
-  var prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : defaultPrefix;
-
-  // prevent empty string
-  var _prefix = prefix === '' ? defaultPrefix : prefix; // initialise prefix in sequence map if necessary
-
-
-  sequenceMap[_prefix] = sequenceMap[_prefix] || 0;
-
-  if (!el.id) {
-    el.setAttribute('id', "".concat(_prefix, "-").concat(sequenceMap[_prefix]++));
-  }
-};
-
-});
-$_mod.def("/makeup-exit-emitter$0.1.1/index", function(require, exports, module, __filename, __dirname) { 'use strict';
+$_mod.installed("makeup-expander$0.7.3", "makeup-exit-emitter", "0.2.0");
+$_mod.main("/makeup-exit-emitter$0.2.0", "");
+$_mod.installed("makeup-exit-emitter$0.2.0", "custom-event-polyfill", "1.0.7");
+$_mod.installed("makeup-exit-emitter$0.2.0", "makeup-next-id", "0.1.1");
+$_mod.def("/makeup-exit-emitter$0.2.0/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -938,7 +918,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var nextID = require('/makeup-next-id$0.0.3/index'/*'makeup-next-id'*/);
+var nextID = require('/makeup-next-id$0.1.1/index'/*'makeup-next-id'*/);
 
 var focusExitEmitters = {}; // requires CustomEvent polyfill for IE9+
 // https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
@@ -1070,9 +1050,9 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var nextID = require('/makeup-next-id$0.1.0/index'/*'makeup-next-id'*/);
+var nextID = require('/makeup-next-id$0.1.1/index'/*'makeup-next-id'*/);
 
-var ExitEmitter = require('/makeup-exit-emitter$0.1.1/index'/*'makeup-exit-emitter'*/);
+var ExitEmitter = require('/makeup-exit-emitter$0.2.0/index'/*'makeup-exit-emitter'*/);
 
 var focusables = require('/makeup-focusables$0.0.4/index'/*'makeup-focusables'*/);
 

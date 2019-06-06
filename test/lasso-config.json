@@ -15,6 +15,18 @@
       ]
     },
     {
+      "name": "nanoid",
+      "dependencies": [
+        "require: nanoid"
+      ]
+    },
+    {
+      "name": "process",
+      "dependencies": [
+        "require: process"
+      ]
+    },
+    {
       "name": "makeup-next-id",
       "dependencies": [
         "require: makeup-next-id"
