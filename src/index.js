@@ -107,10 +107,6 @@ module.exports = class {
         this.hostEl = el.querySelector(this.options.hostSelector); // the keyboard focusable host el
         this.contentEl = el.querySelector(this.options.contentSelector);
 
-        // ensure the widget and expandee have an id
-        nextID(this.el, 'expander-');
-        this.contentEl.id = `${this.el.id}-content`;
-
         ExitEmitter.addFocusExit(this.el);
 
         this._hostKeyDownListener = onHostKeyDown.bind(this);
@@ -130,6 +126,9 @@ module.exports = class {
         }
 
         if (this.options.ariaControls === true) {
+            // ensure the widget has an id
+            nextID(this.el, 'expander');
+            this.contentEl.id = this.contentEl.id || `${this.el.id}-content`;
             this.hostEl.setAttribute('aria-controls', this.contentEl.id);
         }
 

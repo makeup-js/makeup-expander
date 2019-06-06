@@ -1164,10 +1164,7 @@ function () {
     this.el = el;
     this.hostEl = el.querySelector(this.options.hostSelector); // the keyboard focusable host el
 
-    this.contentEl = el.querySelector(this.options.contentSelector); // ensure the widget and expandee have an id
-
-    nextID(this.el, 'expander-');
-    this.contentEl.id = "".concat(this.el.id, "-content");
+    this.contentEl = el.querySelector(this.options.contentSelector);
     ExitEmitter.addFocusExit(this.el);
     this._hostKeyDownListener = onHostKeyDown.bind(this);
     this._hostMouseDownListener = onHostMouseDown.bind(this);
@@ -1186,6 +1183,9 @@ function () {
     }
 
     if (this.options.ariaControls === true) {
+      // ensure the widget has an id
+      nextID(this.el, 'expander');
+      this.contentEl.id = this.contentEl.id || "".concat(this.el.id, "-content");
       this.hostEl.setAttribute('aria-controls', this.contentEl.id);
     }
 
