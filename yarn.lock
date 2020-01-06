@@ -4302,23 +4302,23 @@ make-dir@^2.1.0:
     pify "^4.0.1"
     semver "^5.6.0"
 
-makeup-exit-emitter@~0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/makeup-exit-emitter/-/makeup-exit-emitter-0.2.0.tgz#8db51f2f815bd80d1544ddaa3e24edb2546ef261"
-  integrity sha512-rYWxuFyF7rdf36B06IvN/Y6Q/vQqhrIRyzyR7y2BL3cdkqboYlMxGceqVWPpS9ZyQ7b36r7lRG4sxavec5rzfw==
+makeup-exit-emitter@~0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/makeup-exit-emitter/-/makeup-exit-emitter-0.2.1.tgz#62c4cbe598a0b1b20e76435b4f1d14be1f137de4"
+  integrity sha512-Tv0qjuoePao6FbmJqaU3fQZON56AmAvYzF5Z8Q5l3MRYCF3MPKeCzUdqAf4DZOZuGbuH+3q2/vG/D4RubTW04A==
   dependencies:
     custom-event-polyfill "^1"
-    makeup-next-id "~0.1.1"
+    makeup-next-id "~0.1.2"
 
 makeup-focusables@~0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/makeup-focusables/-/makeup-focusables-0.0.4.tgz#1a324b1e7c026f2254dd599caa4099344f1c266c"
   integrity sha512-2yOaXhTnltA9Fb9+sSk2d2oS5150/qMhyjvFYUUWBxlnVpSR7H7cktH/WLgYl7Nab79W29pNUnAIHX9SpnWKKQ==
 
-makeup-next-id@~0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/makeup-next-id/-/makeup-next-id-0.1.1.tgz#1ea704fed3195c219ab13d7c55731615c3e0eaf0"
-  integrity sha512-igmvG0iQYp+j+PiRz2Q5AfcS+MeBz45me7APWSpwtiktRvNKEpbM8I32gT8E3RMxt3rw//wciuS1Y7kYWxbRUg==
+makeup-next-id@~0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/makeup-next-id/-/makeup-next-id-0.1.2.tgz#d324dfdc02bee85b74408a8bd245fd21ea0e88a9"
+  integrity sha512-l2spZVz00LcEZJNe2JcUIpgaFavtT4BBgaeIk0/yqfAnPKd3zDqXap9htLkaoTcW4hOhD3xPyZMZYqdFlMCOuQ==
   dependencies:
     nanoid "^2"
 
@@ -4566,9 +4566,9 @@ nan@^2.12.1:
   integrity sha512-INOFj37C7k3AfaNTtX8RhsTw7qRy7eLET14cROi9+5HAVbbHuIWUHEauBv5qT4Av2tWasiTY1Jw6puUNqRJXQg==
 
 nanoid@^2:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-2.1.1.tgz#524fd4acd45c126e0c87cd43ab5ee8346e695df9"
-  integrity sha512-0YbJdaL4JFoejIOoawgLcYValFGJ2iyUuVDIWL3g8Es87SSOWFbWdRUMV3VMSiyPs3SQ3QxCIxFX00q5DLkMCw==
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-2.1.8.tgz#2dbb0224231b246e3b4c819de7bfea6384dabf08"
+  integrity sha512-g1z+n5s26w0TGKh7gjn7HCqurNKMZWzH08elXzh/gM/csQHd/UqDV6uxMghQYg9IvqRPm1QpeMk50YMofHvEjQ==
 
 nanomatch@^1.2.9:
   version "1.2.13"

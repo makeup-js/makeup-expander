@@ -55,9 +55,9 @@
   },
   "dependencies": {
     "custom-event-polyfill": "^1",
-    "makeup-exit-emitter": "~0.2.0",
+    "makeup-exit-emitter": "~0.2.1",
     "makeup-focusables": "~0.0.4",
-    "makeup-next-id": "~0.1.1"
+    "makeup-next-id": "~0.1.2"
   },
   "files": [
     "browser.json",
