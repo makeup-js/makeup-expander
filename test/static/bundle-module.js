@@ -1,5 +1,5 @@
-$_mod.installed("makeup-expander$0.8.0", "custom-event-polyfill", "1.0.7");
-$_mod.installed("makeup-expander$0.8.0", "makeup-next-id", "0.1.2");
+$_mod.installed("makeup-expander$0.8.1", "custom-event-polyfill", "1.0.7");
+$_mod.installed("makeup-expander$0.8.1", "makeup-next-id", "0.1.2");
 $_mod.main("/nanoid$2.1.8/non-secure", "");
 $_mod.def("/nanoid$2.1.8/non-secure/index", function(require, exports, module, __filename, __dirname) { var url = 'sOwnPropMN49CEiq-hXvHJdSymlFURTag61GQfuD8YIWz2Zk5xKB7LV30_Abject'
 
@@ -28,10 +28,10 @@ module.exports = function (size) {
 }
 
 });
-$_mod.installed("makeup-expander$0.8.0", "makeup-exit-emitter", "0.2.1");
+$_mod.installed("makeup-expander$0.8.1", "makeup-exit-emitter", "0.2.1");
 $_mod.installed("makeup-exit-emitter$0.2.1", "custom-event-polyfill", "1.0.7");
-$_mod.installed("makeup-expander$0.8.0", "makeup-focusables", "0.0.4");
-$_mod.def("/makeup-expander$0.8.0/index", function(require, exports, module, __filename, __dirname) { 'use strict';
+$_mod.installed("makeup-expander$0.8.1", "makeup-focusables", "0.0.4");
+$_mod.def("/makeup-expander$0.8.1/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 

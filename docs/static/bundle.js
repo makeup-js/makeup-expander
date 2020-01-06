@@ -591,7 +591,7 @@ https://github.com/joyent/node/blob/master/lib/module.js
     }
 })();
 
-$_mod.installed("makeup-expander$0.8.0", "nodelist-foreach-polyfill", "1.2.0");
+$_mod.installed("makeup-expander$0.8.1", "nodelist-foreach-polyfill", "1.2.0");
 $_mod.main("/nodelist-foreach-polyfill$1.2.0", "");
 $_mod.def("/nodelist-foreach-polyfill$1.2.0/index", function(require, exports, module, __filename, __dirname) { if (window.NodeList && !NodeList.prototype.forEach) {
     NodeList.prototype.forEach = function (callback, thisArg) {
@@ -604,7 +604,7 @@ $_mod.def("/nodelist-foreach-polyfill$1.2.0/index", function(require, exports, m
 
 });
 $_mod.run("/nodelist-foreach-polyfill$1.2.0/index");
-$_mod.installed("makeup-expander$0.8.0", "custom-event-polyfill", "1.0.7");
+$_mod.installed("makeup-expander$0.8.1", "custom-event-polyfill", "1.0.7");
 $_mod.main("/custom-event-polyfill$1.0.7", "polyfill");
 $_mod.def("/custom-event-polyfill$1.0.7/polyfill", function(require, exports, module, __filename, __dirname) { // Polyfill for creating CustomEvents on IE9/10/11
 
@@ -662,7 +662,7 @@ $_mod.def("/custom-event-polyfill$1.0.7/polyfill", function(require, exports, mo
 
 });
 $_mod.run("/custom-event-polyfill$1.0.7/polyfill");
-$_mod.installed("makeup-expander$0.8.0", "makeup-next-id", "0.1.2");
+$_mod.installed("makeup-expander$0.8.1", "makeup-next-id", "0.1.2");
 $_mod.main("/makeup-next-id$0.1.2", "");
 $_mod.installed("makeup-next-id$0.1.2", "nanoid", "2.1.8");
 $_mod.main("/nanoid$2.1.8/non-secure", "");
@@ -717,7 +717,7 @@ module.exports = function (el) {
 };
 
 });
-$_mod.installed("makeup-expander$0.8.0", "makeup-exit-emitter", "0.2.1");
+$_mod.installed("makeup-expander$0.8.1", "makeup-exit-emitter", "0.2.1");
 $_mod.main("/makeup-exit-emitter$0.2.1", "");
 $_mod.installed("makeup-exit-emitter$0.2.1", "custom-event-polyfill", "1.0.7");
 $_mod.installed("makeup-exit-emitter$0.2.1", "makeup-next-id", "0.1.2");
@@ -826,7 +826,7 @@ module.exports = {
 };
 
 });
-$_mod.installed("makeup-expander$0.8.0", "makeup-focusables", "0.0.4");
+$_mod.installed("makeup-expander$0.8.1", "makeup-focusables", "0.0.4");
 $_mod.main("/makeup-focusables$0.0.4", "");
 $_mod.def("/makeup-focusables$0.0.4/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
@@ -851,7 +851,7 @@ module.exports = function (el) {
 };
 
 });
-$_mod.def("/makeup-expander$0.8.0/index", function(require, exports, module, __filename, __dirname) { 'use strict';
+$_mod.def("/makeup-expander$0.8.1/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
@@ -1197,10 +1197,10 @@ function () {
 }();
 
 });
-$_mod.def("/makeup-expander$0.8.0/docs/index", function(require, exports, module, __filename, __dirname) { "use strict";
+$_mod.def("/makeup-expander$0.8.1/docs/index", function(require, exports, module, __filename, __dirname) { "use strict";
 
 /* eslint-disable no-console */
-var Expander = require('/makeup-expander$0.8.0/index'/*'../index.js'*/);
+var Expander = require('/makeup-expander$0.8.1/index'/*'../index.js'*/);
 
 var clickExpanderEls = document.querySelectorAll('.expander--click-only');
 var focusExpanderEls = document.querySelectorAll('.expander--focus-only');
@@ -1261,4 +1261,4 @@ expanderWidgets.forEach(function (item) {
 });
 
 });
-$_mod.run("/makeup-expander$0.8.0/docs/index");
+$_mod.run("/makeup-expander$0.8.1/docs/index");
