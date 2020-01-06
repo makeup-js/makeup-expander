@@ -45,12 +45,12 @@
     "karma-chrome-launcher": "^3",
     "karma-coverage": "^2",
     "karma-html-reporter": "~0.2",
-    "karma-jasmine": "^2",
+    "karma-jasmine": "^3",
     "lasso-cli": "^2",
     "nodelist-foreach-polyfill": "^1",
     "onchange": "^6",
-    "parallelshell": "^3",
-    "puppeteer": "^1",
+    "parallelshell": "3.0.1",
+    "puppeteer": "^2",
     "rimraf": "^3"
   },
   "dependencies": {
