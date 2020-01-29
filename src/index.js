@@ -1,5 +1,9 @@
 'use strict';
 
+// requires CustomEvent polyfill for IE
+// https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
+const CustomEvent = require('custom-event');
+
 const nextID = require('makeup-next-id');
 const ExitEmitter = require('makeup-exit-emitter');
 const focusables = require('makeup-focusables');
