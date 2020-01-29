@@ -1,4 +1,4 @@
-var Expander = require('../index.js');
+var Expander = require('../src/index.js');
 
 var containerEl = document.createElement('div');
 containerEl.innerHTML = '<span class="expander">'

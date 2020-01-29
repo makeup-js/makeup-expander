@@ -11,7 +11,7 @@ Creates the basic interactivity for an element that expands and collapses anothe
 
 ## Experimental
 
-This module is still in an experimental state, until it reaches v1.0.0 you must consider all minor releases as breaking changes. Patch releases may introduce new features, but will be backwards compatible.
+This CommonJS module is still in an experimental state, until it reaches v1.0.0 you must consider all minor releases as breaking changes. Patch releases may introduce new features, but will be backwards compatible.
 
 ## Install
 
@@ -156,22 +156,6 @@ Set the following properties to true or false to enable or disable the behaviour
 
 * [custom-event-polyfill](https://github.com/krambuhl/custom-event-polyfill)
 * [nodelist-foreach-polyfill](https://github.com/imagitama/nodelist-foreach-polyfill)
-
-## Development
-
-* `npm start`
-* `npm test`
-* `npm run lint`
-* `npm run fix`
-* `npm run build`
-* `npm run clean`
-
-## Test Reports
-
-Each test run will generate the following reports:
-
-* `/reports/coverage` contains Istanbul code coverage report
-* `/reports/html` contains HTML test report
 
 ## CI Build
 
