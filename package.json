@@ -9,7 +9,7 @@
   "scripts": {
     "start": "npm run build && parallelshell \"npm run server\" \"npm run watch\"",
     "test": "karma start --autoWatch false --singleRun true",
-    "prepublishOnly": "npm run clean && npm run lint && npm run test && npm run transpile:module",
+    "prepublishOnly": "npm run clean && npm run lint && npm run build && npm run test && npm run transpile:module",
     "prep": "npm run prepublishOnly",
     "build": "npm run transpile:module && npm run build:docs",
     "build:docs": "npm run transpile:docs && npm run bundle:docs",

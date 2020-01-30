@@ -1,6 +1,6 @@
-/* eslint-disable no-console */
+require('nodelist-foreach-polyfill');
 
-const Expander = require('../../src/index.js');
+const Expander = require('../../index.js');
 const clickExpanderEls = document.querySelectorAll('.expander--click-only');
 const focusExpanderEls = document.querySelectorAll('.expander--focus-only');
 const hoverExpanderEls = document.querySelectorAll('.expander--hover-only');
