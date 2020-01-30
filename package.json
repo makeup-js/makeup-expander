@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "custom-event": "^1",
-    "makeup-exit-emitter": "~0.2.1",
+    "makeup-exit-emitter": "~0.2.2",
     "makeup-focusables": "~0.0.4",
     "makeup-next-id": "~0.1.2"
   },
